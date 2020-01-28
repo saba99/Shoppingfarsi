@@ -1,0 +1,1 @@
+@extends('adminfarsi.layouts.master')
