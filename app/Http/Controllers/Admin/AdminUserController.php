@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\User;
+
 class AdminUserController extends Controller
 {
     /**
@@ -12,9 +14,13 @@ class AdminUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+   
     public function index()
-    {
-        return view('adminfarsi.users.index');
+    {    
+
+        $users=User::all();
+        return view('adminfarsi.users.index',compact('users'));
     }
 
     /**
@@ -24,7 +30,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminfarsi.users.create');
     }
 
     /**

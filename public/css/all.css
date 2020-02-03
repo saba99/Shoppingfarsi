@@ -8817,6 +8817,7 @@ body,
     transition: margin-left 0.3s ease-in-out;
     /*margin-left: 250px;*/
     z-index: 3000;
+    margin-right:260px;
   }
 }
 
