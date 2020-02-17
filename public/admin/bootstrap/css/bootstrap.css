@@ -2440,6 +2440,7 @@ table th[class*="col-"] {
 .table-responsive {
   overflow-x: auto;
   min-height: 0.01%;
+  direction: rtl;
 }
 @media screen and (max-width: 767px) {
   .table-responsive {
@@ -6738,4 +6739,8 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+.display-inline-block{
+  display:inline-block;
 }

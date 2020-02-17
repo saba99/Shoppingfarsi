@@ -26,45 +26,43 @@ Route::namespace('Shopping')->prefix('shopping')->name('shopping.')->group(funct
     Route::resource('/checkout', 'PayController');
 });
 
-    Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('/products', 'ProductController');
-    
-
-    Route::get('/categories/show', 'CategoryController@show')->name('categories.show');
-    Route::resource('/categories', 'CategoryController');
-    Route::get('/ShowTable', 'ProductController@ShowTable')->name('products.ShowTable');
-
-    Route::resource('/dashboard', 'DashboardController');
-
-    Route::get('/table', 'DashboardController@table')->name('table');
-
-   
-});
+ 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+/*Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+ 
+});*/
+Route::group(['prefix' => 'administrator'], function () {
 
-    Route::get('adminPage', 'MainController@Main');
-    Route::resource('users', 'AdminUserController');  
+
+    Route::get('/', 'Backend\MainController@mainPage');
+
+    Route::get('categories/{id}/settings', 'Backend\CategoryController@indexSetting')->name('categories.indexSetting');
+    Route::post('categories/{id}/settings', 'Backend\CategoryController@saveSetting');
+    
+    Route::resource('categories', 'Backend\CategoryController');
+
+    Route::resource('attributes-group', 'Backend\AttributeGroupController');
+
+    Route::resource('attributes-value', 'Backend\AttributesValueController');
+
+    Route::resource('brands','Backend\BrandController');
+
+
+     Route::post('photos/upload','Backend\PhotoController@upload')->name('photos.upload');
+     
+    Route::resource('photos', 'Backend\PhotoController');
+
+   
+    Route::resource('products', 'Backend\ProductController');
+
+    Route::resource('simple-image-upload', 'Backend\DropZoneController');
 
 });
-Route::get('/',function(){
 
 
-//return $user=Auth::user();
-$user=Auth::user();
-$usermodel=new App\User;
-if(Auth::check()){
 
-
-    echo "Hello:".$user->name. " " .Auth::id();
-    
-    
-}
-
-
-});
 
 

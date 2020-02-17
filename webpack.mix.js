@@ -11,10 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-/*mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');*/
+mix.js('resources/js/app.js', 'public/js')
+   /*.sass('resources/sass/app.scss', 'public/css');*/
 
-   mix.styles([
+   /*mix.styles([
          'resources/PersianAdminLTE/dist/css/bootstrap-rtl.min.css',
          'resources/PersianAdminLTE/dist/css/custom-style.css',
        'resources/PersianAdminLTE/dist/css/adminlte.css',
@@ -53,4 +53,11 @@ const mix = require('laravel-mix');
     
     
 
- ],'public/js/all.js');  
+ ],'public/js/all.js');  */
+
+
+
+ mix.styles(['resources/backend/css/dropzone.css'],'public/admin/dist/css/dropzone.css')
+    .scripts(['resources/backend/js/dropzone.min.js','resources/backend/js/dropzone-amd-module.min.js'],'public/admin/dist/js/dropezone.min.js') ;
+ 
+
