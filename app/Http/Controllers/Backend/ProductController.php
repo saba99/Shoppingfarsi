@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Product;
-use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Session;
+
 
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\savephoto;
-    use App\Models\Photo;
+ use App\Models\Photo;
 
 class ProductController extends Controller
 {
@@ -33,8 +31,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-
-    $categories=Category::with('childrenRecursive')->where('parent_id',null)->get();
+    ($categories = Category::with('childrenRecursive'));
+    //$categories=Category::with('childrenRecursive')->where('parent_id',null)->get();
     
     $brands=Brand::all();
 
@@ -53,7 +51,7 @@ class ProductController extends Controller
 
     public function checkSKU($number){
 
-        return Product::where('sku',$number)->exists();
+        //return Product::where('sku',$number)->exists();
     }
     /**
      * Store a newly created resource in storage.
@@ -63,40 +61,43 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
-         $newProduct=new Product();
-        $newProduct->title=$request->title;
-        $newProduct->sku = $this->generateSKU();
-        $newProduct->slug=$request->slug;
-        $newProduct->status = $request->status;
-        $newProduct->price = $request->price;
-        $newProduct->discount= $request->discount_price;
-        $newProduct->short_description = $request->meta_desc;
-        //$newProduct->brand_id = $request->brand_id;
+       
+ //return $request->all();
+        //dd($attributes,$request->input('attributes')[0]);
+       
+        /*($newProduct = $request->all());
+        dd(Product::create($newProduct));*/
+
+        $newProduct = new Product();
+        $newProduct->title = $request->input('title');
+         $newProduct->sku = $request->input('sku');
+        $newProduct->slug =$request->input('slug');
+        $newProduct->status = $request->input('status');
+        $newProduct->price = $request->input('price');
+        $newProduct->discount= $request->input('discount_price');
+        $newProduct->short_description = $request->input('description');
+        //$newProduct->brand_id = $request->brand;
+        $newProduct->meta_desc = $request->input('meta_desc');
+        $newProduct->meta_title = $request->input('meta_title');
+        $newProduct->meta_keywords = $request->input('meta_keywords');
         $newProduct->user_id = 1;
-        
-         /*$photo=new photo();
-         ($newProduct->img = $photo->id);*/
-           
-          $newProduct->save();
+
+        $newProduct->save();
           
           $newProduct->categories();
-         dd($newProduct->categories()->sync($request->categories));
-      
-      
-        
-        /*Session::flash('success', 'محصول با موفقیت اضافه شد.');
-        return redirect('/administrator/products');*/
+         $newProduct->categories()->sync($request->categories);
+        /*$attributes=$request->input('attributes');
+      ($newProduct=AttributeValue()->sync($attributes));*/
+        //$attributes=explode(',',$request->input('attributes')[0]);
+        //$photos=explode(',',$request->input('photo')[0]);
+        //$newProduct->photos()->sync($photos);*/
+
+
+
+        Session::flash('add_product', 'محصول با موفقیت اضافه شد.');
+        return redirect('/administrator/products');
 }
-    
-
-    public function upload()
-    {
-
-    
-
-    }
-     
+  
     /**
      * Display the specified resource.
      *
@@ -116,7 +117,15 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+       $categories=Category::all();
+
+       $brands=Brand::all();
+
+       $products=Product::findOrFail($id);
+       //photos in with 
+       $product=Product::with(['attributeValue','categories'])->whereId($id)->first();
+
+        return view('admin.products.edit',compact(['brands','categories','product']));
     }
 
     /**
@@ -128,7 +137,35 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       // return $request->all();
+        $Product = Product::findOrFail($id);
+        $Product->title = $request->input('title');
+        $Product->sku = $request->input('sku');
+        $Product->slug = $request->input('slug');
+        $Product->status = $request->input('status');
+        $Product->price = $request->input('price');
+        $Product->discount = $request->input('discount_price');
+        $Product->short_description = $request->input('description');
+        //$newProduct->brand_id = $request->brand;
+        $Product->meta_desc = $request->input('meta_desc');
+        $Product->meta_title = $request->input('meta_title');
+        $Product->meta_keywords = $request->input('meta_keywords');
+        $Product->user_id = 1;
+
+        $Product->save();
+
+        $Product->categories();
+        $Product->categories()->sync($request->categories);
+        /*$attributes=$request->input('attributes');
+      ($newProduct=AttributeValue()->sync($attributes));*/
+        //$attributes=explode(',',$request->input('attributes')[0]);
+        //$photos=explode(',',$request->input('photo')[0]);
+        //$newProduct->photos()->sync($photos);*/
+
+
+
+        Session::flash('update_product', 'محصول با موفقیت به روز رسانی شد');
+        return redirect('/administrator/products');
     }
 
     /**
@@ -139,6 +176,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product=Product::findOrFail($id);
+
+        $product->delete();
+
+        Session::flash('delete_product', 'محصول با موفقیت حذف شد');
+        return redirect('/administrator/products');
     }
 }

@@ -10,6 +10,8 @@ use App\Models\AttributeGroup;
 use App\Models\Product;
 class Category extends Model
 {
+    //public $table = "category_products";
+
     //relation with self
     public function children()
     {

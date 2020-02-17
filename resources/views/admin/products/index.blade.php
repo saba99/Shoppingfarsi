@@ -2,32 +2,32 @@
 
 
 @section('content')
-@if(Session::has('add_category'))
+@if(Session::has('add_product'))
 
 <div class="alert alert-success">
 
   <ul class="list-unstyled">
-    <li>{{Session('add_category')}}</li>
+    <li>{{Session('add_product')}}</li>
   </ul>
 </div>
 
 @endif
-@if(Session::has('update_category'))
+@if(Session::has('update_product'))
 
 <div class="alert alert-success">
 
   <ul class="list-unstyled">
-    <li>{{Session('update_category')}}</li>
+    <li>{{Session('update_product')}}</li>
   </ul>
 </div>
 
 @endif
-@if(Session::has('err_category'))
+@if(Session::has('delete_product'))
 
-<div class="alert alert-danger">
+<div class="alert alert-success">
 
   <ul class="list-unstyled">
-    <li>{{Session('err_category')}}</li>
+    <li>{{Session('delete_product')}}</li>
   </ul>
 </div>
 
@@ -69,8 +69,8 @@
                  @foreach ($products as  $product )
                      <tr>
                     <td class="text-center">{{$product->id}}</td>
-                    <td class="text-center">{$product->title}}</td>
-                    <td class="text-center">{$product->slug}}</td>
+                    <td class="text-center">{{$product->title}}</td>
+                    <td class="text-center">{{$product->slug}}</td>
                     <td class="text-center">{{$product->sku}}</td>
                     <td class="text-center">{{$product->price}}</td>
                     <td class="text-center">{{$product->status}}</td>

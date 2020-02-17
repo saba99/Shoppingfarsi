@@ -10,8 +10,10 @@ use App\Models\Photo;
 
 class Product extends Model
 {
-    public $table = "category_products";
-
+    //public $table = "category_products";
+    protected $fillable = [
+        'sku', 'title', 'slug', 'discount_price','price'
+    ];
     
     public function categories()
     {
@@ -29,7 +31,7 @@ class Product extends Model
 
     public function  AttributeValue(){
 
-        return $this->belongsToMany(AttributeValue::class,'attributegroup_category','product_id','attributevalue_id');
+        return $this->belongsToMany(AttributeValue::class,'attributevalue_products','product_id','attributevalue_id');
 
     }
 
