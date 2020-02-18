@@ -408,7 +408,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i> لیست محصولات</a></li>
-            
+             <li><a href="{{route('file.index')}}"><i class="fa fa-circle-o"></i>   آپلود تصویر محصول</a></li>
           </ul>
         </li>
         <li>

@@ -9,6 +9,9 @@ use App\Models\savephoto;
 use App\Models\Product;
 use  App\Models\Category;
 use  App\Models\Brand;
+use Illuminate\Support\Facades\DB;
+
+
 class DropZoneController extends Controller
 {
     /**
@@ -42,34 +45,27 @@ class DropZoneController extends Controller
 
     public function store(Request $request)
     {
-        
-         
+        $imagemodel = new savephoto();
 
-        request()->validate([
-            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        if ($files = $request->file('profile_image')) {
-      
-            $destinationPath = public_path('/profile_images/');
-         
-                  $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $profileImage);
+       
+        if ($files = $request->file('file')) {
+            $name = $files->getClientOriginalName();
+            $files->move('images', $name);
+            DB::table('savephotos')->insert([
+                'file' => $name
+                
+            ]);
+        }
+        return redirect()->back()->with('message', 'Successfully Save Your Image file.');
 
-            $insert['img'] = "$profileImage";
-            
-            $imagemodel = new savephoto();
-         
-            $imagemodel->imgfile = "$profileImage";
-            $imagemodel->description=$request->input('description');
-            $imagemodel->save();
 
             
           
         }
-        return back()->with('success', 'Image Upload successfully');
+        
              
             
-    }
+   
     
     /**
      * Display the specified resource.

@@ -61,19 +61,29 @@
                             </div>
                             <div class="form-group">
                                 <label>قیمت ویژه</label>
-                                <input type="number" name="discount_price" class="form-control" placeholder="قیمت ویژه محصول را وارد کنید...">
+                                <input type="text" name="discount_price" class="form-control" placeholder="قیمت ویژه محصول را وارد کنید...">
                             </div>
+
+                              <div class="form-group">
+                                <label for="filename">تصویر</label>
+                                    <input type="file" name="filename" id="filename" class="form-control">
+                                    
+                                    <div class="row">
+                                    @foreach($photos as $photo)
+                                        <div class="col-sm-3" id="updated_photo_{{$photo->id}}">
+                                            {{--{{$files[0]->id}}--}}
+                                            <img class="img-responsive" src="{{$photo->path}}">
+                                            
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div> 
                             
                             <div class="form-group">
                                 <label>توضیحات</label>
                                 <textarea id="textareaDescription" type="text" name="description" class="form-control" placeholder="توضیحات محصول را وارد کنید..."></textarea>
                             </div>
-                            
-                          <div class="form-group">
-                                <label for="photo">گالری تصاویر</label>
-                                <input type="file" name="photo"  class="form-control" id="product-photo">
-                                
-                            </div> 
+                         
                            {{-- <div class="form-group">
                                 <label for="photo">گالری تصاویر</label>
                                 <input type="hidden" name="photo_id[]" id="product-photo">

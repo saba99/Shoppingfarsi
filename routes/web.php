@@ -1,9 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Route::namespace('Shopping')->prefix('shopping')->name('shopping.')->group(function () {
 
@@ -61,6 +61,14 @@ Route::group(['prefix' => 'administrator'], function () {
     Route::resource('simple-image-upload', 'Backend\DropZoneController');
 
 });
+
+Route::resource('/', 'Frontend\HomeController');
+
+Route::get('/homePage', 'Frontend\HomeController@index')->name('homePage');
+
+
+Route::resource('file', 'Backend\FileController');
+
 
 
 

@@ -20,8 +20,9 @@ class ProductController extends Controller
      */
     public function index()
     {   
-        $products=Product::paginate(10);
-       return view('admin.products.index',compact(['products']));
+        //$products=Product::paginate(10);
+        ($products = Product::with('photos', 'categories')->paginate(2));
+       return view('admin.products.index',compact(['products','photos']));
     }
 
     /**
@@ -35,8 +36,9 @@ class ProductController extends Controller
     //$categories=Category::with('childrenRecursive')->where('parent_id',null)->get();
     
     $brands=Brand::all();
+        $photos = Photo::all();
 
-    return view('admin.products.create',compact(['categories','brands']));
+    return view('admin.products.create',compact(['categories','brands','photos']));
 
     }
     public function generateSKU(){
@@ -61,14 +63,25 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       
- //return $request->all();
+
+        //return $request->all();
         //dd($attributes,$request->input('attributes')[0]);
-       
+
         /*($newProduct = $request->all());
         dd(Product::create($newProduct));*/
-
         $newProduct = new Product();
+        if ($file = $request->file('filename')) {
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = new Photo();
+            $photo->original_name = $file->getClientOriginalName();
+            $photo->path = $name;
+            $photo->user_id = 1;
+            $photo->save();
+
+            //$product->photo_id = $photo->id;
+        }
+        
         $newProduct->title = $request->input('title');
          $newProduct->sku = $request->input('sku');
         $newProduct->slug =$request->input('slug');

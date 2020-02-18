@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Brand;
 use App\Models\Photo;
+use App\File;
 
 class Product extends Model
 {
     //public $table = "category_products";
     protected $fillable = [
-        'sku', 'title', 'slug', 'discount_price','price'
+        'sku', 'title', 'slug', 'discount_price','price','status','short_description','user_id'
     ];
     
     public function categories()
@@ -39,4 +40,11 @@ class Product extends Model
 
         return $this->BelongsToMany(Photo::class);
     }
+    public function files()
+    {
+
+        return $this->BelongsToMany(File::class);
+    }
+
+
 }
