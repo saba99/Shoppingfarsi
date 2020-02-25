@@ -65,13 +65,13 @@
                                     <input type="file" name="filename" id="filename" class="form-control">
                                     <span class="text-danger"> {{ $errors->first('filename') }}</span>
                                     <div class="row">
-                                    @foreach($files as $file)
-                                        <div class="col-sm-3" id="updated_photo_{{$file->id}}">
+                                   
+                                        <div class="col-sm-3" >
                                             {{--{{$files[0]->id}}--}}
-                                            <img class="img-responsive" src="{{$file->filename}}">
+                                           <img class="img-responsive" src="{{}}">
                                             
                                         </div>
-                                   @endforeach
+                                
                                 </div>
                             </div> 
                             

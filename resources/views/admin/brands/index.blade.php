@@ -68,14 +68,14 @@
                          <tr>
 
                             <td>{{$brand->id}}</td>
-                            <td>{{$brand->name}}</td>
+                            <td>{{$brand->title}}</td>
                             <td>{{$brand->description}}</td>
-                            <td>{{$brand->img}}</td>
+                            
                             <td>{{$brand->created_at}}</td>
                             <td>
                                 <a href="{{route('brands.edit'),$brand->id}}"  class="btn btn-warning">ویرایش</a>
-                                <div class="display-inline-block" >
-                            <form  action="/administrator/brandss/{{$brand->id}}" method="POST">
+                                <div class="display-inline-block">
+                            <form  action="/administrator/brands/{{$brand->id}}" method="POST">
                                     @csrf
                                 <input type="hidden"  name="_method" value="Delete">
 

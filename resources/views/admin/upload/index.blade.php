@@ -68,7 +68,9 @@
                   </tr>
                   </thead>
                   <tbody>
-                 @foreach ($products as  $product )
+                                         
+                 @foreach ($products as  $product)
+
                      <tr>
                     <td class="text-center">{{$product->id}}</td>
                     <td class="text-center">{{$product->title}}</td>
@@ -77,41 +79,30 @@
                     <td class="text-center">{{$product->price}}</td>
                     <td class="text-center">{{$product->status}}</td>
                     <td class="text-center">{{$product->short_description}}</td>
-                   <td class="text-center">{{$product->created_at}}</td>
-                     @foreach($files as $file) 
-                    {{--@foreach($product->files as $file)--}} 
-                  
-                     <td><img src="{{$file->filename}}" class="img-responsive"></td>
-                    @endforeach 
-                   {{---<td><img src="{{$product->files ? $product->files->filename : "http://www.placehold.it/400" }}" class="img-fluid" width="80"></td>-}} 
-                 
-                  {{-- @endforeach--}}
-                   </div>
+                    <td class="text-center">{{$product->created_at}}</td>
                    
-                  
-        </div>
-       
-                   <td class="text-center">
-                     <a class="btn btn-warning" href="{{route('file.edit',$file->id)}}">ویرایش</a>
+                    <td class="text-center"><img src="{{$product->first()->files()->first()->filename}}" class="img-responsive" style="width:100px;"></td>
+                   {{--$product->files[0]->filename--}}
+                        
+                     <td class="text-center">
+                     <a class="btn btn-warning" href="{{route('file.edit',$product->id)}}">ویرایش</a>
                      <div class="display-inline-block">
-
+                      
                       <form action="/file/{{$product->id}}" method="POST">
-                          {{----}}
+                          
                           {{--{{route('categories.destroy',$category->id)--}}
                       @csrf
                         {{--<a class="btn btn-danger" href="{{route('categories.destroy',$category->id)}}">حذف</a>--}}
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger">حذف</button>
+                        
                      </form>
                    
                      </div>
                      
                     </td>
-                  </tr>
-                 
-                 @endforeach
-
-           
+                    @endforeach
+         
                   </tbody>
                 </table>
                 

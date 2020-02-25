@@ -43,13 +43,26 @@
 
 <lable for="photo"  class="control-label"  >تصویر</lable>
 
- <input type="hidden" name="photo_id" id="brand-photo">
-<div  id="photo" class="dropzone"   >
+ {{--<input type="hidden" name="file_id" id="brand-photo">--}}
+{{--<div  id="photo" class="dropzone"   ></div>--}}
+
+ <input type="file" name="file_id" id="filename" class="form-control">
 
 </div>
-
-</div>
-
+<div class="form-group" >
+   <label for="filename">تصویر</label>
+  
+        
+     <div class="row">
+                                   
+    <div class="col-sm-3" >
+                                            {{--{{$files[0]->id}}--}}
+    <img class="img-responsive" src="">
+                                            
+     </div>
+                                
+      </div>
+      </div> 
 
 
 <div class="form-group">
@@ -90,7 +103,7 @@
 
 {{--<script  type="text/javascript" src="{{asset('/admin/dist/js/dropzone-amd-module.min.js')}}"></script>--}}
 
-window.Dropzone = require('dropzone');
+{{--window.Dropzone = require('dropzone');
 
 <script>
  
@@ -115,7 +128,7 @@ $(function () {
 
 
 
-</script>
+</script>--}}
 
  
 @endsection

@@ -54,6 +54,7 @@
                   <thead>
                   <tr>
                     <th class="text-center">شناسه</th>
+                    {{--<th class="text-center">تصویر<th>--}}
                     <th class="text-center">عنوان</th>
                     <th class="text-center">نام مستعار</th>
                     <th class="text-center">کد محصول</th>
@@ -69,12 +70,13 @@
                  @foreach ($products as  $product )
                      <tr>
                     <td class="text-center">{{$product->id}}</td>
+                   {{--<td class="text-center">{{$product[0]->files[0]->filename}}</td>--}} 
                     <td class="text-center">{{$product->title}}</td>
                     <td class="text-center">{{$product->slug}}</td>
                     <td class="text-center">{{$product->sku}}</td>
                     <td class="text-center">{{$product->price}}</td>
                     <td class="text-center">{{$product->status}}</td>
-                    <td class="text-center">{{$product->short_description}}</td>
+                    <td class="text-center">{{Str::limit($product->short_description,50)}}</td>
                    <td class="text-center">{{$product->created_at}}</td>
                    <td class="text-center">
                      <a class="btn btn-warning" href="{{route('products.edit',$product->id)}}">ویرایش</a>
@@ -99,8 +101,8 @@
            
                   </tbody>
                 </table>
-                <div class="col-md-12" style="text-align: center">{{$products->links()}}</div>
-              </div>
+               <div class="col-md-12" style="text-align: center">{{$products->links()}}</div>
+              </div> 
               <!-- /.table-responsive -->
             </div>
            

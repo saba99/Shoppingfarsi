@@ -9,8 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Product;
 
 use App\Models\Photo;
-
-
+use App\Models\Address;
+use App\Models\Role;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -50,5 +50,26 @@ class User extends Authenticatable
     public function photos(){
 
         return $this->hasMany(Photo::class);
+    }
+
+    public function addresses(){
+
+        return $this->hasMany(Address::class);
+    }
+    public function roles()
+    {
+
+        return $this->belongsToMany(Role::class);
+    }
+    
+    public function isAdmin(){
+
+        if (isset($this->roles[0]) && $this->roles[0]->name == "مدیر") {
+
+            return true;
+        } else {
+
+            return false;
+        }
     }
 }

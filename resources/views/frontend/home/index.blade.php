@@ -5,9 +5,14 @@
 
 <div id="content" class="col-xs-12">
           <!-- Slideshow Start-->
+          
           <div class="slideshow single-slider owl-carousel">
-            <div class="item"> <a href="#"><img class="img-responsive" src="image/slider/banner-2.jpg" alt="banner 2" /></a> </div>
-            <div class="item"> <a href="#"><img class="img-responsive" src="image/slider/banner-1.jpg" alt="banner 1" /></a> </div>
+            @foreach($banners as $key=>$banner)
+      
+            <div class="item" @if($key==0 )active  @endif> 
+              <a href="{{$banner->link}}"><img class="img-responsive" src="{{$banner->image}}" alt="banner 2" /></a> 
+            </div>
+            @endforeach
           </div>
           <!-- Slideshow End-->
           <!-- Banner Start-->
@@ -25,25 +30,28 @@
   </ul>
   <div id="tab-featured" class="tab_content">
       <div class="owl-carousel product_carousel_tab">
+        
          @foreach($latestProduct as $product)
 <div class="product-thumb clearfix">
-              <div class="image"><a href="product.html">
+              <div class="image"><a href="{{route('product.single',['slug'=>$product->slug])}}">
                 
-                <img src="{{$file}}" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
+                <img src="{{$product->first()->files()->first()->filename}}" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
               <div class="caption">                                    {{--$product->photos[0]->path--}}
 
-                {{--$product->files()->filename[0]--}}
-                <h4><a href="product.html">{{$product->title}}</a></h4>
+                {{--$product->files[0]->filename--}}
+                <h4><a href="{{route('product.single',['slug'=>$product->slug])}}">{{$product->title}}</a></h4>
                
                 @if($product->discount)
-                <p class="price"><span class="price-new">{{$product->discount}}</span> <span class="price-old">{{$product->price}}</span><span class="saving">{{round(abs(($product->price-$product->discount)/$product->price*100))}} %</span></p>
+                <p class="price"><span class="price-new">{{$product->discount}}</span> <span class="price-old">{{$product->price}}</span><span class="saving">{{round(abs($product->price-$product->discount*100)/($product->price))}} %</span></p>
                 
                 @else 
                  <p class="price"> {{$product->price}}</p>
                  @endif
               </div>
               <div class="button-group">
-                <button class="btn-primary" type="button" onClick="cart.add({{$product->id}});"><span>افزودن به سبد</span></button>
+                <a class="btn-primary" type="button" href="{{route('cart.add',['id'=>$product->id])}}"><span>افزودن به سبد</span></a>
+
+                
                 <div class="add-to-links">
                   <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i></button>
                   <button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i></button>
@@ -801,7 +809,12 @@
           
           <!-- برند Logo Carousel Start-->
           <div id="carousel" class="owl-carousel nxt">
-            <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="پالم" class="img-responsive" /></a> </div>
+            {{--@foreach($brands as $brand)--}}
+
+ <div class="item text-center"> <a href="#"><img src="" alt="پالم" class="img-responsive" /></a> </div>
+                                                     {{--{{$brand->photo->path}}--}}    {{--{{$brand->files->filenmae}}--}} 
+           {{-- @endforeach--}}
+           
             <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="سونی" class="img-responsive" /></a> </div>
             <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="کنون" class="img-responsive" /></a> </div>
             <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="اپل" class="img-responsive" /></a> </div>

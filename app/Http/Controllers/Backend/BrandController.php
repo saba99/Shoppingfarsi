@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Brand;
 use App\Models\Photo;
+use App\File;
 use Illuminate\Support\Facades\Session;
 
 
@@ -45,7 +46,7 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$fileId)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:brands',
@@ -65,30 +66,43 @@ class BrandController extends Controller
         }
         else{
 
-            $brand=new Brand();
-            $photo=new Photo();
-            
           
-            $brand->title=$request->input('title');
+            //$photo=new Photo();
             
-            $brand->description = $request->input('description');
+            /*$file = new File;
+          
+            
+           */
 
-            
-           //$brand->photo_id=$request->input('photo_id');
+
+            $file = File::findOrFail($fileId);
+            if ($file) {
+
+                $brand = new Brand();
+
+                $brand->description = $request->input('description');
+
+                $brand->title = $request->input('title');
+
+                //$brand->file_id = $fileId;
+                $brand->file_id = $file->id;
+                
+                $brand->save();
+            }
            
-            //$input['photo_id'] = $photo->id;
-               ($brand->photo_id = $photo->id);
+           /* $input['file_id'] = $file->id;
+               ($brand->file_id = $file->id);*/
           
    
             //dd($brand=$request->all());
         $brand->save();
+  
             
-          
-            Session::flash('add_brands','برند با موفقیت ذخیره شد ');
+    } Session::flash('add_brands','برند با موفقیت ذخیره شد ');
 
             return redirect('administrator/brands');
-        }
-    }
+}
+    
 
     /**
      * Display the specified resource.

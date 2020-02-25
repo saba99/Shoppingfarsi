@@ -412,6 +412,18 @@
           </ul>
         </li>
         <li>
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>اسلایدر</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('banners.view')}}"><i class="fa fa-circle-o"></i>نمایش اسلایدر</a></li>
+             <li><a href="{{route('banners.index')}}"><i class="fa fa-circle-o"></i>   آپلود اسلایدر</a></li>
+            
+          </ul>
+        </li>
+        <li>
           <a href="pages/calendar.html">
             <i class="fa fa-calendar"></i> <span>تقویم</span>
             <small class="label pull-right bg-red">3</small>
@@ -423,6 +435,7 @@
             <small class="label pull-right bg-yellow">12</small>
           </a>
         </li>
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-folder"></i> <span>نمونه ها</span>

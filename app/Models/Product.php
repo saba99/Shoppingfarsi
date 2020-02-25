@@ -45,6 +45,6 @@ class Product extends Model
 
         return $this->BelongsToMany(File::class);
     }
-
+   
 
 }

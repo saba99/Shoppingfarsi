@@ -4,7 +4,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
-
+use App\File;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Brand;
 use App\Models\Category;
@@ -21,7 +22,10 @@ class ProductController extends Controller
     public function index()
     {   
         //$products=Product::paginate(10);
-        ($products = Product::with('photos', 'categories')->paginate(2));
+        ($products = Product::with('photos','files', 'categories')->paginate(5));
+        
+        //yess dd($products[0]->files[0]->filename);
+        
        return view('admin.products.index',compact(['products','photos']));
     }
 
@@ -69,20 +73,9 @@ class ProductController extends Controller
 
         /*($newProduct = $request->all());
         dd(Product::create($newProduct));*/
-        $newProduct = new Product();
-        if ($file = $request->file('filename')) {
-            $name = time() . $file->getClientOriginalName();
-            $file->move('images', $name);
-            $photo = new Photo();
-            $photo->original_name = $file->getClientOriginalName();
-            $photo->path = $name;
-            $photo->user_id = 1;
-            $photo->save();
 
-            //$product->photo_id = $photo->id;
-        }
-        
-        $newProduct->title = $request->input('title');
+        $newProduct=new Product;
+         $newProduct->title = $request->input('title');
          $newProduct->sku = $request->input('sku');
         $newProduct->slug =$request->input('slug');
         $newProduct->status = $request->input('status');

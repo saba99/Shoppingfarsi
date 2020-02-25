@@ -7,8 +7,12 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\City;
+use App\Models\Provience;
+use App\Models\Address;
 class RegisterController extends Controller
 {
     /*
@@ -63,11 +67,26 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {    
+
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+       
+    } 
+
+
+    public function getAllCities($province_id){
+
+         // $cities=City::all();
+        $provinces = Provience::all();
+        
+       $cities=City::where('province_id',$province_id)->get();
+
+       return view('auth.register',compact(['provinces','cities']));
+      
     }
 }

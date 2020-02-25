@@ -22,9 +22,13 @@ class FileController extends Controller
      */
     public function index()
     {
-       ($files  =   File::with('products')->get()) ;
-        ($products  =   Product::all());
-        return view('admin.upload.index', compact('files','products'));
+           
+        $products = Product::with('files')->get();
+        ($files = File::with(['products'])->pluck('id', 'filename'));
+        // dd($products);
+        // dd($products[24]->files()->first());
+        
+        return view('admin.upload.index', compact('products','files'));
     }
 
     /**
@@ -35,15 +39,18 @@ class FileController extends Controller
     public function create()
     {  
         
-       // $products=Product::all();
-       //($files=File::all());
-     // return $files->filename;
-
         //($categories = Category::with('childrenRecursive')->where('parent_id', null)->get());
-        ($products=Product::with(['files'])->get());
-        ($files = File::with(['products'])->get());
-        
-        return view('admin.upload.upload',compact(['products','files']));
+      ( $products=Product::with(['files'])->get());
+
+        //dd($photo=($products[0]['files'][0]['filename']));
+        /*$products = Product::with(['files' => function ($q) {
+            $q->latest(); // sorting related table, so we can use first on the collection
+        }])->take(20)->get();*/
+
+   $files = File::with(['products'])->get();
+       // dd($filesphoto=$products->first()->files()->first()->filename) ;
+     
+        return view('admin.upload.upload',compact(['products','files', 'filesphoto']));
     }
 
     /**
@@ -56,21 +63,15 @@ class FileController extends Controller
     {    
 
         $products=new Product;
-
-        
-        /*$products->title = $request->input('title');
-        $products->sku = $request->input('sku');
-        $products->slug = $request->input('slug');*/
-        // file validation
         $validator      =   Validator::make(
             $request->all(),
             ['filename'      =>   'required|mimes:jpeg,png,jpg,bmp|max:2048']
         );
-        // if validation fails
+
         if ($validator->fails()) {
             return back()->withErrors($validator->errors());
         }
-        // if validation success
+       
         if ($file   =   $request->file('filename')) {
 
             $name      =   time() . time() . '.' . $file->getClientOriginalExtension();
@@ -92,8 +93,6 @@ class FileController extends Controller
                    
                ($file->products());
                
-               //($request->all());
-                //return back()->with("success", "محصول با موفقیت ذخیره شد ");
 
                 Session::flash('add_product', 'محصول با موفقیت اضافه شد.');
                 return redirect('/file');
@@ -124,12 +123,13 @@ class FileController extends Controller
      */
     public function edit($id)
     {
-       $product = Product::all();
+      $product = Product::findOrFail($id);
         //$brands = Brand::all();
-        $files = File::findOrFail($id);
+        ($files = File::findOrFail($id));
         
         //photos in with 
-        dd($fileproduct = File::with(['products'])->get());
+      ($fileproduct = File::with(['products'])->get());
+        //$product = Product::with(['files'])->whereId($id)->first();
         return view('admin.upload.edit', compact(['files', 'product', 'fileproduct']));
     }
 
@@ -142,7 +142,28 @@ class FileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $Product = Product::findOrFail($id);
+        $file=File::findOrFail($id);
+        $Product->title = $request->input('title');
+        $Product->sku = $request->input('sku');
+        $Product->slug = $request->input('slug');
+        $Product->status = $request->input('status');
+        $Product->price = $request->input('price');
+        $Product->discount = $request->input('discount_price');
+        $Product->short_description = $request->input('description');
+        //$newProduct->brand_id = $request->brand;
+        $Product->meta_desc = $request->input('meta_desc');
+        $Product->meta_title = $request->input('meta_title');
+        $Product->meta_keywords = $request->input('meta_keywords');
+        $Product->user_id = 1;
+
+        $Product->save();
+
+        $Product->files();
+        $Product->files()->sync($request->files);
+
+        Session::flash('update_product', 'محصول با موفقیت به روز رسانی شد');
+        return redirect('/file');
     }
 
     /**
@@ -153,6 +174,11 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = File::findOrFail($id);
+
+        $product->delete();
+
+        Session::flash('delete_product', 'محصول با موفقیت حذف شد');
+        return redirect('/administrator/products');
     }
 }
