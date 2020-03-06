@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\File;
 use App\Models\Banner;
 use App\Models\Brand;
+
 class HomeController extends Controller
 {
     /**
@@ -21,32 +22,26 @@ class HomeController extends Controller
 
        
         ($latestProduct=Product::with('files')->get());
-        /*$modelCategoryProduct=Product::with(['categories'=>function($q){
+        $modelCategoryProduct=Product::with(['categories'=>function($q){
            
             $q->where('name','پوشاک');
   
-        }])->limit(10)->get();*/
+        }])->limit(10)->get();
         //$brands=Brand::orderBy('created_at','desc')->limit(10)->get();
 
         $product=Product::orderby('created_at','desc')->limit(10);
-        //err dd($product->files()->filename);
-
-        //dd($latestProduct);
-        //$file= File::all();
-        //yess dd($latestProduct[0]->files[0]->filename);
-        //dd($file[2]) ;
+        
         //$product = Product::with('files')->whereId($id)->first());
        //yess $file = File::where('id', 1)->select("id", "filename")->first();
         //  yess dd($file->filename);
         $file  = File::pluck('filename', 'id')->first();
 
-        //dd($file);
         $banners = Banner::where('status', '1')->get();
 
-
-        return  view('frontend.home.index',compact(['latestProduct','file','banners']));
+        return  view('frontend.home.index',compact(['latestProduct','file','banners', 'modelCategoryProduct']));
     }
 
+ 
     /**
      * Show the form for creating a new resource.
      *

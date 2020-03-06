@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Session;
+
 use Validator;
 //use Illuminate\Support\Facades\Validator;
 
 use App\Models\Photo;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\File;
 use App\User;
 
 class PhotoController extends Controller
@@ -23,8 +27,13 @@ class PhotoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-       
+    {    
+        $products = Product::with('photos')->get();
+        ($files = Photo::with(['products'])->pluck('id', 'filename'));
+        // dd($products);
+        // dd($products[24]->files()->first());
+
+        return view('admin.upStorg.create', compact('products', 'files'));
     }
 
     /**
@@ -45,71 +54,49 @@ class PhotoController extends Controller
      */
     public function upload(Request $request)
     {
-         $photo = new Photo();
-        $image = $request->file('file');
-
-        $imageName = time() . '.' . $image->extension();
-
-        ($original_name = $image->extension());
-
-        $image->move(public_path('images'), $imageName);
-
-        $photo->path = $imageName;
-        $photo->original_name = $image->getClientOriginalName();
-
-      //$user = User::findOrFail($userid);
-        /*if($userid = $request->user()->id){
-            
-      $photo->user_id=$userid;
-      
-        }*/
         
-       //$photo->save();
-         
-       //Auth::user()->id;
-        
-     return response()->json(['success' => $imageName]);
-               
-        return response()->json([
-            'photo_id' => $photo->id
-        ]);
-
-
-         /* $uploadedFile = $request->file('file');
-        $filename = time() .'.' .$uploadedFile->getClientOriginalName();
-        $original_name = $uploadedFile->getClientOriginalName();
-
-       Storage::disk('local')->putFileAs(
-            'public/photos',
-            $uploadedFile,
-            $filename
-        );
-    
-        $photo = new Photo();
-        $photo->original_name = $original_name;
-        $photo->path = $filename;
-        $photo->user_id = 1;
-        $photo->save();
-
-        return response()->json([
-            'photo_id' => $photo->id
-        ]);*/
-   
       
          
 
         }
 
-      
+      public function store(Request $request){
+                
+
+        if($file=$request->file('file')){
+                
+            $name=$file->getClientOriginalName();
+            $file->store('public/posts');
+        }
+      }
     
 
-    public function store(Request $request){
+    public function storage(Request $request,$id){
 
 
-     
+        request()->validate([
+            'filename' => 'required',
+            
+        ]);
+       if($cover = $request->file('filename')){
+        $extension = $cover->getClientOriginalExtension();
+        Storage::disk('public')->put($cover->getFilename() . '.' . $extension,  File::get($cover));
 
-        
+        $photo= new Photo();
+       
+        $photo->user_id = 1;
+        $photo->mime = $cover->getClientMimeType();
+        $photo->original_name = $cover->getClientOriginalName();
+        $photo->filename = $cover->getFilename() . '.' . $extension;
+       $photo->save();
+       // $product=new Product();
+            //$photo->products()->sync();
+           
+       } 
+($products = Product::findOrFail($id));
+       ($photo->products())->sync([$products]);
 
+        return view('admin.upStorg.create', compact('products','photo'));
     
     }
 

@@ -23,7 +23,8 @@ class Admin
             if(Auth::user()->isAdmin()){
 
                  return $next($request);
-                 
+
+              
             }
             else{  
                  return redirect('frontend/profile');

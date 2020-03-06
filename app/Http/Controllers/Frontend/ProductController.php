@@ -7,21 +7,42 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 
+use App\Models\Category;
+
 class ProductController extends Controller
 {
     public function getProduct($slug){
 
       $product=Product::with(['files','categories','brands', 'AttributeValue.AttributeGroup'])->where('slug',$slug)->first();
        
-      //dd($product->categories);
       $relatedProducts = Product::with('categories')->whereHas('categories', function($q) use ($product){
         $q->whereIn('id', $product->categories);
       })->get();
-      //dd($relatedProducts);
-      
-     // dd($product->files[0]->filename);
+    
 
       return view('frontend.products.index',compact(['product','relatedProducts']));
       
+    }
+
+    public function getProductByCategory($id,$page=2){
+
+       //$category=Category::with('products.files')->where('id',$id)->first();
+   $category=Category::whereId($id)->first();
+    
+    //dd($category);
+$products=Product::with('files')->whereHas('categories',function($q) use ($category){
+$q->where('id',$category->id);
+
+})->paginate($page);
+$product=Product::with('categories')->whereHas('categories',function($q) use ($category){
+      $q->where('id', $category->id);
+})->paginate($page);
+dd($product);
+
+//dd($category->name);
+ return view('frontend.categories.index',compact(['category','products','categories']));
+
+
+
     }
 }

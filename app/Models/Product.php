@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Brand;
 use App\Models\Photo;
+use App\Models\Order;
 use App\File;
 
 class Product extends Model
@@ -45,6 +46,15 @@ class Product extends Model
 
         return $this->BelongsToMany(File::class);
     }
-   
+    
+    public function order(){
+        return $this->BelongsToMany(Order::class);
+    }  
+
+    public function comments(){
+
+
+        return $this->hasMany(Comment::class);
+    }
 
 }

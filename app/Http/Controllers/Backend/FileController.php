@@ -21,7 +21,8 @@ class FileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+       // return asset('storage/phpFD8.tmp.png');
            
         $products = Product::with('files')->get();
         ($files = File::with(['products'])->pluck('id', 'filename'));
@@ -92,6 +93,7 @@ class FileController extends Controller
                $file->products()->sync($products);
                    
                ($file->products());
+               
                
 
                 Session::flash('add_product', 'محصول با موفقیت اضافه شد.');
@@ -175,7 +177,7 @@ class FileController extends Controller
     public function destroy($id)
     {
         $product = File::findOrFail($id);
-
+           // dd($product);
         $product->delete();
 
         Session::flash('delete_product', 'محصول با موفقیت حذف شد');

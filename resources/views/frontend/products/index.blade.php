@@ -15,8 +15,8 @@
             <h1 class="title" itemprop="name">{{$product->title}}</h1>
             <div class="row product-info">
               <div class="col-sm-6">
-                <div class="image">
-                    <img class="img-responsive" itemprop="image" style="text-align:center !important;" id="zoom_01" src="{{$product->files[0]->filename}}"  data-zoom-image="/image/product/macbook_air_1-600x900.jpg" /> </div>
+                <div class="image">           
+                    <img class="img-responsive" itemprop="image" style="text-align:center !important;" id="zoom_01" src=" {{$product->files[0]->filename}}"  data-zoom-image="/image/product/macbook_air_1-600x900.jpg" /> </div>
                 <div class="center-block text-center">
                     <span class="zoom-gallery">
                         <i class="fa fa-search"></i> برای مشاهده گالری روی تصویر کلیک کنید</span>
@@ -89,7 +89,9 @@
                     <div>   
                       <button type="button" class="wishlist" onClick=""><i class="fa fa-heart"></i> افزودن به علاقه مندی ها</button>
                       <br />
+                      
                       <button type="button" class="wishlist" onClick=""><i class="fa fa-exchange"></i> مقایسه این محصول</button>
+                   
                     </div>
                   </div>
                 </div>
@@ -202,7 +204,8 @@
             <div class="owl-carousel related_pro">
               @foreach($relatedProducts as $product)
               <div class="product-thumb">
-                <div class="image"><a href="{{route('product.single',['slug'=>$product->slug])}}"><img src="{{$product->files[0]->filename}}" ></a></div>
+                <div class="image"><a href="{{route('product.single',['slug'=>$product->slug])}}">
+                  <img src="{{$product->files[0]->filename}}"  style="width:100px;"></a></div>
                 <div class="caption">
                   <h4><a href="{{route('product.single',['slug'=>$product->slug])}}">{{$product->title}} </a></h4>
                   @if($product->discount)

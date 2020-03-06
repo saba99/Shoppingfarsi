@@ -210,10 +210,11 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
             <li><a class="home_link" title="خانه" href="index.html">خانه</a></li>
-            <li class="dropdown"><a href="category.html">مد و زیبایی</a>
+              
+            <li class="dropdown"><a href="{{route('category.index',['id'=>1,'page'=>1])}}">پوشاک</a>
               <div class="dropdown-menu">
               <ul>
-                      <li><a href="category.html">آقایان <span>&rsaquo;</span></a>
+                      <li><a href="">پوشاک <span>&rsaquo;</span></a>
                         <div class="dropdown-menu">
                           <ul>
                             <li><a href="category.html">زیردسته ها </a> </li>
@@ -222,6 +223,7 @@
                             <li><a href="category.html">زیردسته ها </a> </li>
                             <li><a href="category.html">زیردسته جدید </a> </li>
                           </ul>
+                        
                         </div>
                       </li>
                       <li><a href="category.html" >بانوان</a> </li>
@@ -246,6 +248,7 @@
                     </ul>
               </div>
             </li>
+              
             <li class="dropdown"> <a href="category.html">الکترونیکی</a>
                   <div class="dropdown-menu">
                     <ul>

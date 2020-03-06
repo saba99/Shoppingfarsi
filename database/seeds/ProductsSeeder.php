@@ -15,6 +15,17 @@ class ProductsSeeder extends Seeder
     public function run()
     {
         DB::table('products')->insert([
+            'id' => 1,
+            'title' => 'LG 5',
+            'short_description' => 'DISCOVER AROUND THE WORLD',
+            'sku' => '5912',
+            'status' => '1',
+            'slug' => 'BIF',
+            'price' => 423.2,
+            'discount' => '5',
+            'user_id' => '1'
+        ]);
+        DB::table('products')->insert([
             'id'=>2,
             'title' => 'Samsung Galaxy A9',
             'short_description' => 'A brand new, sealed Lilac Purple Verizon Global Unlocked Galaxy S9 by Samsung. This is an upgrade. Clean ESN and activation ready.',
@@ -23,7 +34,7 @@ class ProductsSeeder extends Seeder
             'slug' => 'strawberry',
             'price' => 698.88,
             'discount' => '32',
-            'user_id' => '4'
+            'user_id' => '1'
         ]);
         DB::table('products')->insert([
             'id' => 3,
@@ -34,10 +45,10 @@ class ProductsSeeder extends Seeder
             'slug' => 'WHITEGROUP',
             'price' => 569.45,
             'discount' => '22',
-            'user_id' => '4'
+            'user_id' => '1'
         ]);
         DB::table('products')->insert([
-            'id' => 4,
+            'id' =>4,
             'title' => 'NOKIA',
             'short_description' => 'FAKE WITH SEEDER',
             'sku' => '9874',
@@ -45,7 +56,7 @@ class ProductsSeeder extends Seeder
             'slug' => 'golden globe',
             'price' => 4853,
             'discount' => '55',
-            'user_id' => '4'
+            'user_id' => '1'
         ]);
         DB::table('products')->insert([
             'id' => 5,
@@ -56,7 +67,7 @@ class ProductsSeeder extends Seeder
             'slug' => 'TAHOMA',
             'price' => 4581,
             'discount' => '12',
-            'user_id' => '4'
+            'user_id' => '1'
         ]);
         DB::table('products')->insert([
             'title' => 'Samsung Galaxy S9',

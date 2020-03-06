@@ -78,11 +78,11 @@
                     <td class="text-center">{{$product->sku}}</td>
                     <td class="text-center">{{$product->price}}</td>
                     <td class="text-center">{{$product->status}}</td>
-                    <td class="text-center">{{$product->short_description}}</td>
+                    <td class="text-center">{{Str::limit($product->short_description,50)}}</td>
                     <td class="text-center">{{$product->created_at}}</td>
                    
-                    <td class="text-center"><img src="{{$product->first()->files()->first()->filename}}" class="img-responsive" style="width:100px;"></td>
-                   {{--$product->files[0]->filename--}}
+                    <td class="text-center"><img src="{{$product->files[0]->filename}}" class="img-responsive" style="width:100px;"></td>
+                   {{--$product->first()->files()->first()->filename}--}}
                         
                      <td class="text-center">
                      <a class="btn btn-warning" href="{{route('file.edit',$product->id)}}">ویرایش</a>

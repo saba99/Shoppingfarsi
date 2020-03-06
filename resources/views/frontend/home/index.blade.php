@@ -10,7 +10,7 @@
             @foreach($banners as $key=>$banner)
       
             <div class="item" @if($key==0 )active  @endif> 
-              <a href="{{$banner->link}}"><img class="img-responsive" src="{{$banner->image}}" alt="banner 2" /></a> 
+              <a href="{{$banner->link}}"><img class="img-responsive" src="{{$banner->image}}"  /></a> 
             </div>
             @endforeach
           </div>
@@ -33,9 +33,10 @@
         
          @foreach($latestProduct as $product)
 <div class="product-thumb clearfix">
-              <div class="image"><a href="{{route('product.single',['slug'=>$product->slug])}}">
-                
-                <img src="{{$product->first()->files()->first()->filename}}" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
+              <div class="image"><a href="{{route('product.single', ['slug'=> $product->slug])}}">
+            {{--$product->first()->files()->first()->filename--}}
+               
+                <img src="{{$product->files[0]->filename}}" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
               <div class="caption">                                    {{--$product->photos[0]->path--}}
 
                 {{--$product->files[0]->filename--}}
@@ -306,7 +307,7 @@
           <!-- Banner End -->
           <!-- دسته ها محصولات Slider Start-->
           <div class="category-module" id="latest_category">
-            <h3 class="subtitle">مد و زیبایی - <a class="viewall" href="category.tpl">نمایش همه</a></h3>
+            <h3 class="subtitle">مد و زیبایی - <a class="viewall" href="{{route('product.single',['slug'=>$product->slug])}}">نمایش همه</a></h3>
             <div class="category-module-content">
               <ul id="sub-cat" class="tabs">
                 <li><a href="#tab-cat1">آقایان</a></li>

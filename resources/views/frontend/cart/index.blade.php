@@ -514,7 +514,7 @@
           </div>
           <div class="buttons">
             <div class="pull-left"><a href="index.html" class="btn btn-default">ادامه خرید</a></div>
-            <div class="pull-right"><a href="checkout.html" class="btn btn-primary">تسویه حساب</a></div>
+            <div class="pull-right"><a href="{{route('payment.verify',['amount'=>Session::get('cart')->totalPrice])}}" class="btn btn-primary">تسویه حساب</a></div>
           </div>
         </div>
         <!--Middle Part End -->

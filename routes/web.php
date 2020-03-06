@@ -30,7 +30,10 @@ Route::namespace('Shopping')->prefix('shopping')->name('shopping.')->group(funct
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', 'HomeController@index')->middleware(['auth','verified'])->name('home');
+
+
 /*Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
  
 });*/
@@ -55,7 +58,7 @@ Route::prefix('administrator')->group( function () {
 
 
      Route::post('photos/upload','Backend\PhotoController@upload')->name('photos.upload');
-     
+    Route::match(['get,post'],'photos/{id}/storage', 'Backend\PhotoController@storage')->name('photos.storage');
     Route::resource('photos', 'Backend\PhotoController');
 
    
@@ -74,6 +77,9 @@ Route::prefix('administrator')->group( function () {
     Route::patch('/update-banner/{id}', 'Backend\BannerController@update')->name('banners.update');
     Route::match(['delete','get'],'/delete-banner/{id}', 'Backend\BannerController@deleteBanner')->name('banners.delete');
 
+
+    Route::get('orders','Backend\OrderController@index');
+
 });
 
 
@@ -83,12 +89,17 @@ Route::prefix('administrator')->group( function () {
 Route::group(['middleware'=>'auth'],function(){
 
 Route::get('/profile','Frontend\UserController@profile')->name('user.profile');
-Route::resource('dropzone', 'Frontend\SliderController');
+
 
 
     Route::get('/add-product-to-cart/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
     Route::get('/remove-item/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
     Route::get('/cart', 'Frontend\CartController@getCart')->name('cart.Cart');
+
+    Route::get('/payment-verify','Frontend\OrderController@verify')->name('payment.verify');
+    
+
+
 
 });
 
@@ -106,3 +117,7 @@ route::post('/register-user', 'Frontend\UserController@register')->name('user.re
 
 
 Route::get('products/{slug}','Frontend\ProductController@getProduct')->name('product.single');
+
+//Route::get('products/{id}', 'Frontend\ProductController@getProduct')->name('product.single');
+
+ Route::get('category/{id}/{page?}','Frontend\ProductController@getProductByCategory')->name('category.index');

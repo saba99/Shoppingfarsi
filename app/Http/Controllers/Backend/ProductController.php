@@ -6,10 +6,11 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use App\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\savephoto;
+
  use App\Models\Photo;
 
 class ProductController extends Controller
@@ -87,7 +88,7 @@ class ProductController extends Controller
         $newProduct->meta_title = $request->input('meta_title');
         $newProduct->meta_keywords = $request->input('meta_keywords');
         $newProduct->user_id = 1;
-
+       
         $newProduct->save();
           
           $newProduct->categories();
@@ -97,7 +98,10 @@ class ProductController extends Controller
         //$attributes=explode(',',$request->input('attributes')[0]);
         //$photos=explode(',',$request->input('photo')[0]);
         //$newProduct->photos()->sync($photos);*/
-
+       ($files=$request->input('filename')[0]);
+        
+      dd( $newProduct->files()->sync($files));
+      
 
 
         Session::flash('add_product', 'محصول با موفقیت اضافه شد.');

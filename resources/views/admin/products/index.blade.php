@@ -54,8 +54,9 @@
                   <thead>
                   <tr>
                     <th class="text-center">شناسه</th>
-                    {{--<th class="text-center">تصویر<th>--}}
+                    {{----}}
                     <th class="text-center">عنوان</th>
+                    <th class="text-center">تصویر<th>
                     <th class="text-center">نام مستعار</th>
                     <th class="text-center">کد محصول</th>
                     <th class="text-center">قیمت</th>
@@ -70,8 +71,9 @@
                  @foreach ($products as  $product )
                      <tr>
                     <td class="text-center">{{$product->id}}</td>
-                   {{--<td class="text-center">{{$product[0]->files[0]->filename}}</td>--}} 
                     <td class="text-center">{{$product->title}}</td>
+                   <td class="text-center"><img src="{{$product->files[0]->filename}}" style="width:100px;"></td> 
+                    
                     <td class="text-center">{{$product->slug}}</td>
                     <td class="text-center">{{$product->sku}}</td>
                     <td class="text-center">{{$product->price}}</td>
