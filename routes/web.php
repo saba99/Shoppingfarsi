@@ -134,3 +134,21 @@ Route::get('products/{slug}','Frontend\ProductController@getProduct')->name('pro
 //Route::get('products/{id}', 'Frontend\ProductController@getProduct')->name('product.single');
 
  Route::get('category/{id}/{page?}','Frontend\ProductController@getProductByCategory')->name('category.index');
+
+
+
+ ///////
+ //Route::view('/landingPage','frontend.home.landingpage');
+ Route::get('/landingPage','Frontend\LandingPageController@index')->name('landing-page');
+
+ //Route::view('/products', 'frontend.categories.view');
+Route::get('/Products', 'Frontend\ShopController@index')->name('shop.index');
+
+//Route::view('/product', 'frontend.products.view');
+Route::get('/Product/{product}', 'Frontend\ShopController@show')->name('shop.show');
+
+//Route::view('/cart', 'frontend.cart.view');
+Route::get('/cart', 'CartController@index')->name('cart.index');
+Route::post('/cart', 'CartController@store')->name('cart.store');
+
+Route::view('/checkout', 'frontend.checkout.index');

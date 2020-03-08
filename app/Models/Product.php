@@ -57,4 +57,14 @@ class Product extends Model
         return $this->hasMany(Comment::class);
     }
 
+    /*public function presentPrice(){
+
+        return money_format('$%i',$this->price/100);
+    }*/
+    public function scopeMightAlsoLike($query){
+
+          
+        return $query->inRandomOrder()->take(4);
+    }
+
 }

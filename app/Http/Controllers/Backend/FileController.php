@@ -181,6 +181,6 @@ class FileController extends Controller
         $product->delete();
 
         Session::flash('delete_product', 'محصول با موفقیت حذف شد');
-        return redirect('/administrator/products');
+        return redirect('/file');
     }
 }

@@ -24,7 +24,7 @@ class ProductController extends Controller
       
     }
 
-    public function getProductByCategory($id,$page=2){
+    public function getProductByCategory($id,$page=5){
 
        //$category=Category::with('products.files')->where('id',$id)->first();
    $category=Category::whereId($id)->first();

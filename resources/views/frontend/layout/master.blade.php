@@ -211,7 +211,7 @@
           <ul class="nav navbar-nav">
             <li><a class="home_link" title="خانه" href="index.html">خانه</a></li>
               
-            <li class="dropdown"><a href="{{route('category.index',['id'=>1,'page'=>1])}}">پوشاک</a>
+            <li class="dropdown"><a href="{{route('category.index',['id'=>4,'page'=>1])}}">پوشاک</a>
               <div class="dropdown-menu">
               <ul>
                       <li><a href="">پوشاک <span>&rsaquo;</span></a>
@@ -418,7 +418,7 @@
                 </ul>
               </div>
             </li>
-            <li class="custom-link-right"><a href="#" target="_blank"> همین حالا بخرید!</a></li>
+            <li class="custom-link-right"><a href="{{route('cart.index')}}" target="_blank"> همین حالا بخرید!</a></li>
           </ul>
         </div>
         </div>
