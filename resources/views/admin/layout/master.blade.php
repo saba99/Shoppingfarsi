@@ -385,7 +385,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('brands.index')}}"><i class="fa fa-circle-o"></i> لیست برند ها</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+            
             
             
           </ul>
@@ -422,13 +422,18 @@
             
           </ul>
         </li>
-        <li>
-          <a href="pages/calendar.html">
-            <i class="fa fa-calendar"></i> <span>تقویم</span>
-            <small class="label pull-right bg-red">3</small>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>نظرات</span>
+            <i class="fa fa-angle-left pull-right"></i>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('comments.index')}}"><i class="fa fa-circle-o"></i>نمایش نظرات</a></li>
+  
+            
+          </ul>
         </li>
-        <li>
+      
           <a href="pages/mailbox/mailbox.html">
             <i class="fa fa-envelope"></i> <span>میل باکس</span>
             <small class="label pull-right bg-yellow">12</small>
@@ -437,7 +442,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-folder"></i> <span>نمونه ها</span>
+            <i class="fa fa-folder"></i> <span></span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">

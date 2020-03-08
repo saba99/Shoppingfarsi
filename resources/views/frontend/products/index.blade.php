@@ -67,6 +67,7 @@
                   <div class="form-group required">
                     <label class="control-label">رنگ</label>
                     <select class="form-control" id="input-option200" name="option[200]">
+                      
                       <option value=""> --- لطفا انتخاب کنید --- </option>
                       <option value="4">مشکی </option>
                       <option value="3">نقره ای </option>
@@ -131,74 +132,59 @@
                   </table>
              @endforeach
               </div>
-              </div>
-              <div id="tab-review" class="tab-pane">
-                <form class="form-horizontal">
-                  <div id="review">
+              </div>                                                          {{--Frontend\CommentController@store--}}
+              <div id="tab-review" class="tab-pane">                  
+                <form class="form-horizontal" method="post"  action="{{route('frontend.comments.store',$product->id)}}">
+                 @csrf
+                 @if(Session::has('add_comment'))
+
+                       <div class="alert alert-success">
+
+                         <ul class="list-unstyled">
+                  <li>{{Session('add_comment')}}</li>
+                                </ul>
+                               </div>
+
+                             @endif
+                    <div class="form-group ">
+                    <div class="col-sm-12">
+                      <label for="description" class="control-label">نظر شما</label>
+                      <textarea class="form-control" id="description" rows="5" name="description"></textarea>
+                      
+                    </div>
+                  </div>
+                     <div class="buttons">
+                    <div class="pull-right">
+                      <button class="btn btn-primary" id="button-review" type="submit">ادامه</button>
+                    </div>
+                  </div>
+                </form>
+                 <div id="review">
                     <div>
+                      @foreach($product->comments as $comment)
                       <table class="table table-striped table-bordered">
                         <tbody>
                           <tr>
-                            <td style="width: 50%;"><strong><span>هاروی</span></strong></td>
-                            <td class="text-right"><span>1395/1/20</span></td>
+                            <td style="width: 50%;"><strong><span>{{$comment->user->name}}</span></strong></td>
+                            <td class="text-right"><span>{{$comment->created_at}}</span></td>
                           </tr>
                           <tr>
-                            <td colspan="2"><p>ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                            <td colspan="2"><p>{{$comment->description}}</p>
                               <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> </div></td>
                           </tr>
                         </tbody>
                       </table>
-                      <table class="table table-striped table-bordered">
-                        <tbody>
-                          <tr>
-                            <td style="width: 50%;"><strong><span>اندرسون</span></strong></td>
-                            <td class="text-right"><span>1395/1/20</span></td>
-                          </tr>
-                          <tr>
-                            <td colspan="2"><p>ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-                              <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                     @endforeach
                     </div>
                     <div class="text-right"></div>
                   </div>
-                  <h2>یک بررسی بنویسید</h2>
-                  <div class="form-group required">
-                    <div class="col-sm-12">
-                      <label for="input-name" class="control-label">نام شما</label>
-                      <input type="text" class="form-control" id="input-name" value="" name="name">
-                    </div>
-                  </div>
-                  <div class="form-group required">
-                    <div class="col-sm-12">
-                      <label for="input-review" class="control-label">بررسی شما</label>
-                      <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
-                      <div class="help-block"><span class="text-danger">توجه :</span> HTML بازگردانی نخواهد شد!</div>
-                    </div>
-                  </div>
-                  <div class="form-group required">
-                    <div class="col-sm-12">
-                      <label class="control-label">رتبه</label>
-                      &nbsp;&nbsp;&nbsp; بد&nbsp;
-                      <input type="radio" value="1" name="rating">
-                      &nbsp;
-                      <input type="radio" value="2" name="rating">
-                      &nbsp;
-                      <input type="radio" value="3" name="rating">
-                      &nbsp;
-                      <input type="radio" value="4" name="rating">
-                      &nbsp;
-                      <input type="radio" value="5" name="rating">
-                      &nbsp;خوب</div>
-                  </div>
-                  <div class="buttons">
-                    <div class="pull-right">
-                      <button class="btn btn-primary" id="button-review" type="button">ادامه</button>
-                    </div>
-                  </div>
-                </form>
+
+
+
+              
+
               </div>
+                 
             </div>
             <h3 class="subtitle">محصولات مرتبط</h3>
             <div class="owl-carousel related_pro">

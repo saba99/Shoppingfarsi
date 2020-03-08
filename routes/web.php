@@ -53,9 +53,11 @@ Route::prefix('administrator')->group( function () {
     Route::resource('attributes-value', 'Backend\AttributesValueController');
 
    
-
-    Route::resource('brands','Backend\BrandController');
-
+    //Route::post('brands/{fileId}', 'Backend\BrandController@save')->name('brands.save');
+    Route::get('brands', 'Backend\AdminBrandController@storeBrand')->name('store.brands');
+    Route::post('brands/store', 'Backend\AdminBrandController@brand')->name('brands');
+   Route::resource('brands','Backend\BrandController');
+   
 
      Route::post('photos/upload','Backend\PhotoController@upload')->name('photos.upload');
     Route::match(['get,post'],'photos/{id}/storage', 'Backend\PhotoController@storage')->name('photos.storage');
@@ -79,9 +81,18 @@ Route::prefix('administrator')->group( function () {
 
 
     Route::get('orders','Backend\OrderController@index');
+    
+    Route::get('comments', 'Backend\CommentController@index')->name('comments.index');
+    Route::get('comments/{id}', 'Backend\CommentController@edit')->name('comments.edit');
+    Route::post('comments/{id}', 'Backend\CommentController@actions')->name('comments.actions');
+    Route::patch('comments/{id}', 'Backend\CommentController@update')->name('comments.update');
+    Route::delete('comments/{id}', 'Backend\CommentController@destroy')->name('comments.destroy');
+
+
+   
 
 });
-
+ 
 
 //middleware
 
@@ -97,12 +108,14 @@ Route::get('/profile','Frontend\UserController@profile')->name('user.profile');
     Route::get('/cart', 'Frontend\CartController@getCart')->name('cart.Cart');
 
     Route::get('/payment-verify','Frontend\OrderController@verify')->name('payment.verify');
-    
 
+   
+    
+     Route::post('comments/{productId}', 'Frontend\CommentController@store')->name('frontend.comments.store');
 
 
 });
-
+//Route::get('/', 'Frontend\HomeController@getProductByCategory')->name('productCategory');
 Route::resource('/', 'Frontend\HomeController');
 
 Route::get('/homePage', 'Frontend\HomeController@index')->name('homePage');

@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Photo;
 use App\Models\Address;
 use App\Models\Role;
+use App\Models\Comment;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -71,5 +72,10 @@ class User extends Authenticatable
 
             return false;
         }
+    }
+
+    public function comments(){
+
+        return $this->hasMany(Comment::class);
     }
 }

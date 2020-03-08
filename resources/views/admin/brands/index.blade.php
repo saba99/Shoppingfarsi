@@ -4,7 +4,7 @@
 @section('content')
 @if(Session::has('add_brands'))
 
-<div class="alert alert-success">
+<div class="alert alert-success ">
 
   <ul class="list-unstyled">
     <li>{{Session('add_brands')}}</li>
@@ -14,7 +14,7 @@
 @endif
 @if(Session::has('update_brands'))
 
-<div class="alert alert-success">
+<div class="alert alert-success ">
 
   <ul class="list-unstyled">
     <li>{{Session('update_brands')}}</li>
@@ -24,7 +24,7 @@
 @endif
 @if(Session::has('delete_brands'))
 
-<div class="alert alert-danger">
+<div class="alert alert-danger ">
 
   <ul class="list-unstyled">
     <li>{{Session('delete_brands')}}</li>
@@ -69,11 +69,11 @@
 
                             <td>{{$brand->id}}</td>
                             <td>{{$brand->title}}</td>
-                            <td>{{$brand->description}}</td>
-                            
-                            <td>{{$brand->created_at}}</td>
-                            <td>
-                                <a href="{{route('brands.edit'),$brand->id}}"  class="btn btn-warning">ویرایش</a>
+                            <td>{{Str::limit($brand->description,50)}}</td>
+                            <td><img src="{{$brand->filename}}" style="width:100px;"></td>
+                            <td>{{$brand->created_at}}</td>  {{--{{route('brands.edit'),$brand->id}}--}}
+                            <td>    
+                                <a href="/administrator/brands/{{$brand->id}}/edit"  class="btn btn-warning">ویرایش</a>
                                 <div class="display-inline-block">
                             <form  action="/administrator/brands/{{$brand->id}}" method="POST">
                                     @csrf

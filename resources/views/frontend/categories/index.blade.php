@@ -13,7 +13,7 @@
         <!--Left Part Start -->
         <aside id="column-left" class="col-sm-3 hidden-xs">
           <h3 class="subtitle">دسته ها</h3>
-          @foreach($categories as $category)
+         
           <div class="box-category">
 
             <ul id="cat_accordion">
@@ -54,14 +54,14 @@
                       <li><a href="category.html">زیردسته جدید</a></li>
                     </ul>
                   </li>
-                  <li><a href="category.html">رومیزی</a> <span class="down"></span>
+                  <li><a href="category.html">{{$category->name}}</a> <span class="down"></span>
                     <ul>
                       <li><a href="category.html">زیردسته های جدید</a></li>
                       <li><a href="category.html">زیردسته جدید</a></li>
                       <li><a href="category.html">زیردسته جدید</a></li>
                     </ul>
                   </li>
-                  <li><a href="category.html">دوربین</a> <span class="down"></span>
+                  <li><a href="category.html">{{$category->name}}</a> <span class="down"></span>
                     <ul>
                       <li><a href="category.html">زیردسته های جدید</a></li>
                     </ul>
@@ -81,48 +81,10 @@
                   <li><a href="category.html">لوازم خانگی</a></li>
                 </ul>
               </li>
-              <li><a href="category.html">کفش</a> <span class="down"></span>
-                <ul>
-                  <li><a href="category.html">آقایان</a></li>
-                  <li><a href="category.html">بانوان</a> <span class="down"></span>
-                    <ul>
-                      <li><a href="category.html">زیردسته های جدید</a></li>
-                      <li><a href="category.html">زیردسته ها</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="category.html">دخترانه</a></li>
-                  <li><a href="category.html">پسرانه</a></li>
-                  <li><a href="category.html">نوزاد</a></li>
-                  <li><a href="category.html">لوازم</a><span class="down"></span>
-                    <ul>
-                      <li><a href="category.html">زیردسته های جدید</a></li>
-                      <li><a href="category.html">زیردسته های جدید</a></li>
-                      <li><a href="category.html">زیردسته ها</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="category.html">ساعت</a> <span class="down"></span>
-                <ul>
-                  <li><a href="category.html">ساعت مردانه</a></li>
-                  <li><a href="category.html">ساعت زنانه</a></li>
-                  <li><a href="category.html">ساعت بچگانه</a></li>
-                  <li><a href="category.html">لوازم</a></li>
-                </ul>
-              </li>
-              <li><a href="category.html">زیبایی و سلامت</a> <span class="down"></span>
-                <ul>
-                  <li><a href="category.html">عطر و ادکلن</a></li>
-                  <li><a href="category.html">آرایشی</a></li>
-                  <li><a href="category.html">ضد آفتاب</a></li>
-                  <li><a href="category.html">مراقبت از پوست</a></li>
-                  <li><a href="category.html">مراقبت از چشم</a></li>
-                  <li><a href="category.html">مراقبت از مو</a></li>
-                </ul>
-              </li>
+             
             </ul>
           </div>
-          @endforeach
+          
           <h3 class="subtitle">پرفروش ها</h3>
           <div class="side-item">
             <div class="product-thumb clearfix">
@@ -273,8 +235,8 @@
            <div class="product-thumb clearfix">
               <div class="image"><a href="{{route('product.single', ['slug'=> $product->slug])}}">
                 
-                <img src="{{$product->first()->files()->first()->filename}}" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
-              <div class="caption">                                    {{--$product->photos[0]->path--}}
+                <img src="{{$product->files[0]->filename}}" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
+              <div class="caption">                                    {{--$product->first()->files()->first()->filename--}}
 
                 {{--$product->files[0]->filename--}}
                 <h4><a href="{{route('product.single',['slug'=>$product->slug])}}">{{$product->title}}</a></h4>

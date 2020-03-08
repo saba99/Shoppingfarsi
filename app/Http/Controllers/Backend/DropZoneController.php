@@ -64,7 +64,7 @@ class DropZoneController extends Controller
         }
         
              
-            
+           
    
     
     /**

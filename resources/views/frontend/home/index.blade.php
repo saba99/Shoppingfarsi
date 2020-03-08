@@ -85,7 +85,7 @@
                 </div>
               </div>
             </div>
-            <div class="product-thumb">
+           <div class="product-thumb">
               <div class="image"><a href="product.html"><img src="image/product/macbook_3-220x330.jpg" alt="رژ لب گارنیر" title="رژ لب گارنیر" class="img-responsive" /></a></div>
               <div class="caption">
                 <h4><a href="product.html">رژ لب گارنیر</a></h4>
@@ -222,7 +222,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="product-thumb">
+                 <div class="product-thumb">
               <div class="image"><a href=""><img src="image/product/macbook_5-220x330.jpg" alt="ژل حمام بانوان" title="ژل حمام بانوان" class="img-responsive" /></a></div>
               <div class="caption">
                 <h4><a href="product.html">ژل حمام بانوان</a></h4>
@@ -310,22 +310,34 @@
             <h3 class="subtitle">مد و زیبایی - <a class="viewall" href="{{route('product.single',['slug'=>$product->slug])}}">نمایش همه</a></h3>
             <div class="category-module-content">
               <ul id="sub-cat" class="tabs">
-                <li><a href="#tab-cat1">آقایان</a></li>
-                <li><a href="#tab-cat2">بانوان</a></li>
-                <li><a href="#tab-cat3">دخترانه</a></li>
-                <li><a href="#tab-cat4">پسرانه</a></li>
-                <li><a href="#tab-cat5">نوزاد</a></li>
-                <li><a href="#tab-cat6">لوازم</a></li>
+                <li><a href="#tab-cat1">مد و پوشاک</a></li>
+                <li><a href="#tab-cat2">کالای دیجیتال</a></li>
+                <li><a href="#tab-cat3">خانه و آشپز خانه</a></li>
+                <li><a href="#tab-cat4">کتاب و هنر</a></li>
+                <li><a href="#tab-cat5">ورزش و سفر</a></li>
+                <li><a href="#tab-cat6">خودرو و ابزار اداری</a></li>
               </ul>
               <div id="tab-cat1" class="tab_content">
                 <div class="owl-carousel latest_category_tabs">
+                  @foreach($productCategory as $pc)
                   <div class="product-thumb">
-                    <div class="image"><a href="product.html"><img src="image/product/samsung_tab_1-220x330.jpg" alt="تبلت ایسر" title="تبلت ایسر" class="img-responsive" /></a></div>
+                    <div class="image"><a href="{{route('product.single',['slug'=>$pc->slug])}}">
+                      <img src="{{$pc->files[0]->filename}}" alt="تبلت ایسر" title="تبلت ایسر" class="img-responsive" /></a></div>
                     <div class="caption">
-                      <h4><a href="product.html">تبلت ایسر</a></h4>
-                      <p class="price"> <span class="price-new">98000 تومان</span> <span class="price-old">240000 تومان</span> <span class="saving">-5%</span> </p>
-                      <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
+                      <h4><a href="{{route('product.single',['slug'=>$pc->slug])}}">{{$pc->title}}</a></h4>
+                      @if($pc->discount)
+                <p class="price"><span class="price-new">{{$pc->discount}}</span>
+                   <span class="price-old">{{$pc->price}}</span><span class="saving">
+                     {{round(abs($pc->price-$pc->discount*100)/($pc->price))}} %</span></p>
+                
+                @else 
+                 <p class="price"> {{$pc->price}}</p>
+                 @endif
+                      <div class="rating">
+                         <span class="fa fa-stack">
+                           <i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
                     </div>
+                    
                     <div class="button-group">
                       <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
                       <div class="add-to-links">
@@ -334,86 +346,26 @@
                       </div>
                     </div>
                   </div>
-                  <div class="product-thumb">
-                    <div class="image"><a href="product.html"><img src="image/product/macbook_pro_1-220x330.jpg" alt=" کتاب آموزش باغبانی " title=" کتاب آموزش باغبانی " class="img-responsive" /></a></div>
-                    <div class="caption">
-                      <h4><a href="product.html"> کتاب آموزش باغبانی </a></h4>
-                      <p class="price"> <span class="price-new">98000 تومان</span> <span class="price-old">120000 تومان</span> <span class="saving">-26%</span> </p>
-                    </div>
-                    <div class="button-group">
-                      <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                      <div class="add-to-links">
-                        <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                        <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="product-thumb">
-                    <div class="image"><a href="product.html"><img src="image/product/macbook_air_1-220x330.jpg" alt="لپ تاپ ایلین ور" title="لپ تاپ ایلین ور" class="img-responsive" /></a></div>
-                    <div class="caption">
-                      <h4><a href="product.html">لپ تاپ ایلین ور</a></h4>
-                      <p class="price"> <span class="price-new">10 میلیون تومان</span> <span class="price-old">12 میلیون تومان</span> <span class="saving">-5%</span> </p>
-                    </div>
-                    <div class="button-group">
-                      <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                      <div class="add-to-links">
-                        <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                        <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="product-thumb">
-                    <div class="image"><a href="product.html"><img src="image/product/macbook_1-220x330.jpg" alt="آیدیا پد یوگا" title="آیدیا پد یوگا" class="img-responsive" /></a></div>
-                    <div class="caption">
-                      <h4><a href="product.html">آیدیا پد یوگا</a></h4>
-                      <p class="price"> 211000 تومان </p>
-                      <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
-                    </div>
-                    <div class="button-group">
-                      <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                      <div class="add-to-links">
-                        <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                        <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="product-thumb">
-                    <div class="image"><a href="product.html"><img src="image/product/ipod_shuffle_1-220x330.jpg" alt="لپ تاپ hp پاویلیون" title="لپ تاپ hp پاویلیون" class="img-responsive" /></a></div>
-                    <div class="caption">
-                      <h4><a href="product.html">لپ تاپ hp پاویلیون</a></h4>
-                      <p class="price"> 122000 تومان </p>
-                    </div>
-                    <div class="button-group">
-                      <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                      <div class="add-to-links">
-                        <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                        <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="product-thumb">
-                    <div class="image"><a href="product.html"><img src="image/product/ipod_touch_1-220x330.jpg" alt="سامسونگ گلکسی s7" title="سامسونگ گلکسی s7" class="img-responsive" /></a></div>
-                    <div class="caption">
-                      <h4><a href="product.html">سامسونگ گلکسی s7</a></h4>
-                      <p class="price"> <span class="price-new">62000 تومان</span> <span class="price-old">122000 تومان</span> <span class="saving">-50%</span> </p>
-                    </div>
-                    <div class="button-group">
-                      <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                      <div class="add-to-links">
-                        <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                        <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                      </div>
-                    </div>
-                  </div>
+                  @endforeach
                 </div>
-              </div>
               <div id="tab-cat2" class="tab_content">
                 <div class="owl-carousel latest_category_tabs">
+                   @foreach($productCategorytab2 as $pc2)
                   <div class="product-thumb">
-                    <div class="image"><a href="product.html"><img src="image/product/ipod_shuffle_1-220x330.jpg" alt="لپ تاپ hp پاویلیون" title="لپ تاپ hp پاویلیون" class="img-responsive" /></a></div>
+                    <div class="image">
+                    <a href="{{route('product.single',['slug'=>$pc2->slug])}}">
+                      <img src="{{$pc2->files[0]->filename}}" alt="لپ تاپ hp پاویلیون" title="لپ تاپ hp پاویلیون" class="img-responsive" /></a></div>
                     <div class="caption">
-                      <h4><a href="product.html">لپ تاپ hp پاویلیون</a></h4>
-                      <p class="price"> 122000 تومان </p>
+                     <h4><a href="{{route('product.single',['slug'=>$pc2->slug])}}">{{$pc2->title}}</a></h4>
+               
+                @if($product->discount)
+                <p class="price"><span class="price-new">{{$pc2->discount}}</span> 
+                  <span class="price-old">{{$pc2->price}}</span>
+                  <span class="saving">{{round(abs($pc2->price-$pc2->discount*100)/($pc2->price))}} %</span></p>
+                
+                @else 
+                 <p class="price"> {{$pc2->price}}</p>
+                 @endif
                     </div>
                     <div class="button-group">
                       <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
@@ -422,7 +374,10 @@
                         <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
                       </div>
                     </div>
-                  </div>
+                  </div> 
+
+                   @endforeach
+
                 </div>
               </div>
               <div id="tab-cat3" class="tab_content">
@@ -702,13 +657,22 @@
           <!-- دسته ها محصولات Slider End-->
           
           <!-- دسته ها محصولات Slider Start -->
-          <h3 class="subtitle">البسه - <a class="viewall" href="category.html">نمایش همه</a></h3>
+          <h3 class="subtitle">کالای دیجیتال - <a class="viewall" href="category.html">نمایش همه</a></h3>
           <div class="owl-carousel latest_category_carousel">
+            @foreach($productCategorytab2 as $pc2)
             <div class="product-thumb">
-              <div class="image"><a href="product.html"><img src="image/product/iphone_6-220x330.jpg" alt="کرم مو آقایان" title="کرم مو آقایان" class="img-responsive" /></a></div>
+              <div class="image">
+                <a href="{{route('product.single',['slug'=>$pc2->slug])}}">
+                  <img src="{{$pc2->files[0]->filename}}" class="img-responsive" /></a></div>
               <div class="caption">
-                <h4><a href="product.html">کرم مو آقایان</a></h4>
-                <p class="price"> 42300 تومان </p>
+                <h4><a href="{{route('product.single',['slug'=>$pc2->slug])}}">{{$pc2->title}}</a></h4>
+                @if($pc2->discount)
+                <p class="price"><span class="price-new">{{$pc2->discount}}</span> <span class="price-old">{{$pc2->price}}</span>
+                  <span class="saving">{{round(abs($pc2->price-$pc2->discount*100)/($pc2->price))}} %</span></p>
+                
+                @else 
+                 <p class="price"> {{$pc2->price}}</p>
+                 @endif
                 <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
               </div>
               <div class="button-group">
@@ -719,6 +683,7 @@
                 </div>
               </div>
             </div>
+            @endforeach
             <div class="product-thumb">
               <div class="image"><a href="product.html"><img src="image/product/nikon_d300_5-220x330.jpg" alt="محصولات مراقبت از مو" title="محصولات مراقبت از مو" class="img-responsive" /></a></div>
               <div class="caption">
@@ -734,95 +699,21 @@
                 </div>
               </div>
             </div>
-            <div class="product-thumb">
-              <div class="image"><a href="product.html"><img src="image/product/nikon_d300_4-220x330.jpg" alt="کرم لخت کننده مو" title="کرم لخت کننده مو" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">کرم لخت کننده مو</a></h4>
-                <p class="price"> 88000 تومان </p>
-              </div>
-              <div class="button-group">
-                <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                <div class="add-to-links">
-                  <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                  <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="product-thumb">
-              <div class="image"><a href=""><img src="image/product/macbook_5-220x330.jpg" alt="ژل حمام بانوان" title="ژل حمام بانوان" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">ژل حمام بانوان</a></h4>
-                <p class="price"> <span class="price-new">19500 تومان</span> <span class="price-old">21900 تومان</span> <span class="saving">-4%</span> </p>
-              </div>
-              <div class="button-group">
-                <button class="btn-primary" type="button" onClick="cart.add('61');"><span>افزودن به سبد</span></button>
-                <div class="add-to-links">
-                  <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick="wishlist.add('61');"><i class="fa fa-heart"></i></button>
-                  <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick="compare.add('61');"><i class="fa fa-exchange"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="product-thumb">
-              <div class="image"><a href="product.html"><img src="image/product/macbook_4-220x330.jpg" alt="عطر گوچی" title="عطر گوچی" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">عطر گوچی</a></h4>
-                <p class="price"> 85000 تومان </p>
-                <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
-              </div>
-              <div class="button-group">
-                <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                <div class="add-to-links">
-                  <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                  <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="product-thumb">
-              <div class="image"><a href="product.html"><img src="image/product/macbook_3-220x330.jpg" alt="رژ لب گارنیر" title="رژ لب گارنیر" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">رژ لب گارنیر</a></h4>
-                <p class="price"> 123000 تومان </p>
-              </div>
-              <div class="button-group">
-                <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                <div class="add-to-links">
-                  <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                  <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="product-thumb">
-              <div class="image"><a href="product.html"><img src="image/product/macbook_2-220x330.jpg" alt="عطر نینا ریچی" title="عطر نینا ریچی" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">عطر نینا ریچی</a></h4>
-                <p class="price"> 110000 تومان </p>
-              </div>
-              <div class="button-group">
-                <button class="btn-primary" type="button" onClick=""><span>افزودن به سبد</span></button>
-                <div class="add-to-links">
-                  <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick=""><i class="fa fa-heart"></i></button>
-                  <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                </div>
-              </div>
-            </div>
+           
+         
           </div>
           <!-- دسته ها محصولات Slider End -->
           
           <!-- برند Logo Carousel Start-->
           <div id="carousel" class="owl-carousel nxt">
-            {{--@foreach($brands as $brand)--}}
+@foreach($brands as $brand)
 
- <div class="item text-center"> <a href="#"><img src="" alt="پالم" class="img-responsive" /></a> </div>
+ <div class="item text-center">
+    <a href="#">
+      <img src="{{$brand->filename}}"  class="img-responsive" /></a> </div>
                                                      {{--{{$brand->photo->path}}--}}    {{--{{$brand->files->filenmae}}--}} 
-           {{-- @endforeach--}}
-           
-            <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="سونی" class="img-responsive" /></a> </div>
-            <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="کنون" class="img-responsive" /></a> </div>
-            <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="اپل" class="img-responsive" /></a> </div>
-            <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="اچ تی سی" class="img-responsive" /></a> </div>
-            <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="اچ پی" class="img-responsive" /></a> </div>
-            <div class="item text-center"> <a href="#"><img src="image/product/apple_logo-100x100.jpg" alt="brand" class="img-responsive" /></a> </div>
-            <div class="item text-center"> <a href="#"><img src="image/product/canon_logo-100x100.jpg" alt="brand1" class="img-responsive" /></a> </div>
+           @endforeach
+
           </div>
           <!-- برند Logo Carousel End -->
         </div>

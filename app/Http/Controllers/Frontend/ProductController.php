@@ -13,13 +13,13 @@ class ProductController extends Controller
 {
     public function getProduct($slug){
 
-      $product=Product::with(['files','categories','brands', 'AttributeValue.AttributeGroup'])->where('slug',$slug)->first();
+      $product=Product::with(['files','categories','brands','comments','user', 'AttributeValue.AttributeGroup'])->where('slug',$slug)->first();
        
       $relatedProducts = Product::with('categories')->whereHas('categories', function($q) use ($product){
         $q->whereIn('id', $product->categories);
       })->get();
     
-
+         
       return view('frontend.products.index',compact(['product','relatedProducts']));
       
     }
@@ -37,7 +37,7 @@ $q->where('id',$category->id);
 $product=Product::with('categories')->whereHas('categories',function($q) use ($category){
       $q->where('id', $category->id);
 })->paginate($page);
-dd($product);
+
 
 //dd($category->name);
  return view('frontend.categories.index',compact(['category','products','categories']));

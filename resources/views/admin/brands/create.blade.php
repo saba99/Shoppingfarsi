@@ -23,9 +23,9 @@
               <div class="row">
                 <div class="col-md-6 col-md-offset-3">
             
-<form action="/administrator/brands/" method="POST"  enctype="multipart/form-data" >
+<form action="{{route('brands.store')}}" method="POST"  enctype="multipart/form-data" >
 
-{{--route('.upload')--}}
+{{--/administrator/brands/--}}
 @csrf
 
 
@@ -43,10 +43,10 @@
 
 <lable for="photo"  class="control-label"  >تصویر</lable>
 
- {{--<input type="hidden" name="file_id" id="brand-photo">--}}
+ <input type="hidden" name="file_id" id="file_id">
 {{--<div  id="photo" class="dropzone"   ></div>--}}
 
- <input type="file" name="file_id" id="filename" class="form-control">
+<input type="file" name="filename" id="filename" class="form-control">
 
 </div>
 <div class="form-group" >

@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\File;
 use App\Models\Banner;
 use App\Models\Brand;
-
+use App\Models\Category;
 class HomeController extends Controller
 {
     /**
@@ -22,89 +22,53 @@ class HomeController extends Controller
 
        
         ($latestProduct=Product::with('files')->get());
+      
         $modelCategoryProduct=Product::with(['categories'=>function($q){
            
-            $q->where('name','پوشاک');
+            $q->where('name','مد و پوشاک');
   
         }])->limit(10)->get();
-        //$brands=Brand::orderBy('created_at','desc')->limit(10)->get();
+        //dd($modelCategoryProduct);
+        $productCategory = Product::with('categories', 'files')->whereHas('categories', function ($q)  {
+            $q->where('name', 'مد و پوشاک');
+        })->get();
+        $productCategorytab2 = Product::with('categories', 'files')->whereHas('categories', function ($q) {
+            $q->where('name', 'کالای دیجیتال');
+        })->get();
+        //dd($productCategorytab2);
+        //dd($productCategory);
+        $brands=Brand::orderBy('created_at','desc')->limit(10)->get();
+        
 
         $product=Product::orderby('created_at','desc')->limit(10);
         
-        //$product = Product::with('files')->whereId($id)->first());
-       //yess $file = File::where('id', 1)->select("id", "filename")->first();
-        //  yess dd($file->filename);
         $file  = File::pluck('filename', 'id')->first();
 
         $banners = Banner::where('status', '1')->get();
 
-        return  view('frontend.home.index',compact(['latestProduct','file','banners', 'modelCategoryProduct']));
+        return  view('frontend.home.index',compact(['latestProduct','file','banners', 'productCategory', 'modelCategoryProduct' ,'productCategorytab2','brands']));
     }
+
+
+    public function getProductByCategory($id, $page = 2)
+    {
+
+        //$category=Category::with('products.files')->where('id',$id)->first();
+        $category = Category::whereId($id)->first();
+
+        //dd($category);
+        $products = Product::with('files')->whereHas('categories', function ($q) use ($category) {
+            $q->where('id', $category->id);
+        })->paginate($page);
+        $productCategory = Product::with('categories','files')->whereHas('categories', function ($q) use ($category) {
+            $q->where('id', $category->id);
+        })->paginate($page);
+
+
+        //dd($category->name);
+        return view('frontend.home.index', compact(['category', 'productCategory', 'products', 'categories']));
+    } 
+
 
  
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

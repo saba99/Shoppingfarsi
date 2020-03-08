@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Brand;
 use App\Models\Photo;
-use App\File;
+//use App\File;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 use Validator;
 //use Illuminate\Support\Facades\Validator;
@@ -27,7 +29,8 @@ class BrandController extends Controller
     {
         //$brands=Brand::all();
         $brands=Brand::paginate(10);
-        return view('admin.brands.index',compact(['brands']));
+        //dd($brands);
+       return view('admin.brands.index',compact(['brands']));
     }
 
     /**
@@ -39,69 +42,95 @@ class BrandController extends Controller
     {
         return view('admin.brands.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request,$fileId)
-    {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:brands',
-            'description' => 'required'
-
-        ], [
-
-            'title.required' => 'عنوان برند باید درج شود ',
-            'title.unique' => 'این برند قبلا ثبت شده است',
-            'description.required' => 'توضیحات خود را وارد کنید ',
-
-
+     public function store(Request $request){
+        request()->validate([
+            'title' => 'required',
+            'description' => 'required',
         ]);
-        if ($validator->fails()) {
+        $cover = $request->file('filename');
+        $extension = $cover->getClientOriginalExtension();
+        Storage::disk('public')->put($cover->getFilename() . '.' . $extension,  File::get($cover));
 
-            return redirect('/administrator/brands')->withErrors($validator)->withInput();
+        $brand = new Brand();
+        $brand->title = $request->title;
+        $brand->description = $request->description;
+        $brand->file_id = $request->file_id;
+        $brand->mime = $cover->getClientMimeType();
+        $brand->original_filename = $cover->getClientOriginalName();
+        $brand->filename = $cover->getFilename() . '.' . $extension;
+       if($brand->save()){
+
+         return redirect()->route('brands.index')
+            ->with('add_brands', 'برند با موفقیت اضافه شد...');
+       }
+
+       
+      
+     }
+    public function save(Request $request,$id)
+    {
+        $brand = new Brand();
+
+        foreach ($request->file('filename') as $image) {
+            $brandImage = new File;
+            $file=File::findOrFail($id);
+            $name = $image->getClientOriginalName();
+            $path = public_path() . 'images/brands/' . $file->id . '/' . $name;
+            dd($image->move($path));
+            
+
+            $brandImage->save();
+            $brandImage->file_id = $file->id;
         }
-        else{
 
-          
-            //$photo=new Photo();
-            
-            /*$file = new File;
-          
-            
-           */
+        $brand->title = $request->title;
+        $brand->description = $request->description;
+        $brand->save();
 
 
-            $file = File::findOrFail($fileId);
-            if ($file) {
 
-                $brand = new Brand();
+        //return redirect()->back();
+        //return view('admin.brands.index', compact(['brand','file', 'brandImage']));
+       
 
-                $brand->description = $request->input('description');
 
-                $brand->title = $request->input('title');
 
-                //$brand->file_id = $fileId;
-                $brand->file_id = $file->id;
+    } 
+    public function storeBrand(Request $request){
+
+            $data=array();
+            $data['description']=$request->description;
+            $data['title'] = $request->title;
+            $image=$request->file('filename');
+
+            if($image){
                 
-                $brand->save();
+
+               $ext=strtolower($image->getClientOriginalExtension());
+              $img_full_name=$ext;
+
+              $upload_path='public/media/brand';
+
+              $img_url=$upload_path.$img_full_name;
+
+              $success=$image->move($upload_path,$img_full_name);
+
+              $data['file_name']=$img_url;
+
+              $brand=DB::table('brands')->insert($data);
+
+              $notification=array(
+                  'message'=>'برند با موفقیت افزوده شد',
+
+              );
+              return redirect()->back()->with($notification);
+
             }
            
-           /* $input['file_id'] = $file->id;
-               ($brand->file_id = $file->id);*/
-          
-   
-            //dd($brand=$request->all());
-        $brand->save();
-  
-            
-    } Session::flash('add_brands','برند با موفقیت ذخیره شد ');
 
-            return redirect('administrator/brands');
-}
+            
+
+    }
     
 
     /**
@@ -123,7 +152,11 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $brand = Brand::findOrFail($id);
+        
+
+        return view('admin.brands.edit', compact(['brand']));
     }
 
     /**
@@ -135,7 +168,24 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $brand = Brand::findOrFail($id);
+        $brand->title = $request->input('title');
+        $brand->description = $request->input('description');
+        $cover = $request->file('filename');
+        $extension = $cover->getClientOriginalExtension();
+        Storage::disk('public')->put($cover->getFilename() . '.' . $extension,  File::get($cover));
+
+        $brand->file_id = $request->file_id;
+        $brand->mime = $cover->getClientMimeType();
+        $brand->original_filename = $cover->getClientOriginalName();
+        $brand->filename = $cover->getFilename() . '.' . $extension;
+        if ($brand->save()) {
+
+            return redirect()->route('brands.index')
+                ->with('update_brands', 'برند با به روز رسانی اضافه شد...');
+        }
+        $brand->save();
+
     }
 
     /**
@@ -146,6 +196,13 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $brand = Brand::findOrFail($id);
+        // dd($product);
+        $brand->delete();
+
+        
+        return redirect()->route('brands.index')
+            ->with('update_brands', 'برند با موفقیت حذف شد ');
+       
     }
 }
