@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Cart;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Product;
 
 class CartController extends Controller
@@ -29,8 +31,14 @@ class CartController extends Controller
 
      ($request->session(['cart' => $cart]));
 
+      //yess dd($cart->items[$id]['qty']);
 
-      return back();
+      //return back();
+      $cities=City::all();
+      $countries = Country::all();
+      //dd($countries);
+
+      return view('frontend.cart.index', compact(['cart', 'oldCart', 'cities', 'countries']));
 
    }
 

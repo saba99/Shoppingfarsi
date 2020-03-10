@@ -44,15 +44,8 @@
                 <p class="price"><span class="price-new">{{$product->price}}</span> <span class="price-old">122000 تومان</span><span class="saving">-10%</span></p>
               </div>
               <div class="button-group">
-                <form action="{{route('cart.store')}}" method="POST">
-                  @csrf
-                  <input type="hidden" name="id" value="{{$product->id}}">
-                  <input type="hidden" name="title" value="{{$product->title}}">
-                  <input type="hidden" name="price" value="{{$product->price}}">
-                  <button class="btn-primary" type="submit" onClick=""><span>افزودن به سبد</span></button>
-                </form>
-               
-               {{--<a href="{{route('cart.index')}}" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>--}}
+             
+               <a href="{{route('cart.index')}}" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>
                 <div class="add-to-links">
                   <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی ها" onClick=""><i class="fa fa-heart"></i></button>
                   <button type="button" data-toggle="tooltip" title="مقایسه این محصول" onClick=""><i class="fa fa-exchange"></i></button>
@@ -304,15 +297,17 @@
           <!-- دسته ها محصولات Slider Start-->
           <div class="category-module" id="latest_category">
             <h3 class="subtitle">مد و زیبایی - <a class="viewall" href="category.tpl">نمایش همه</a></h3>
+           
             <div class="category-module-content">
               <ul id="sub-cat" class="tabs">
-                <li><a href="#tab-cat1">آقایان</a></li>
+                <li><a href="#tab-cat1"></a></li>
                 <li><a href="#tab-cat2">بانوان</a></li>
                 <li><a href="#tab-cat3">دخترانه</a></li>
                 <li><a href="#tab-cat4">پسرانه</a></li>
                 <li><a href="#tab-cat5">نوزاد</a></li>
                 <li><a href="#tab-cat6">لوازم</a></li>
               </ul>
+             
               <div id="tab-cat1" class="tab_content">
                 <div class="owl-carousel latest_category_tabs">
                   <div class="product-thumb">

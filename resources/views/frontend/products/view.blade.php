@@ -48,6 +48,19 @@
                       <option value="2">آبی </option>
                     </select>
                   </div>
+                 
+                   {!! Form::open(['method' => 'POST','files'=>true]) !!}
+                  <div class="form-group ">
+                    <label class="control-label">رنگ</label>
+                    <select class="form-control" id="category" name="category">
+                      @foreach($categories as $category)
+                     {{--<option value=""> --- لطفا انتخاب کنید --- </option>--}} 
+                      <option value="{{$category->id}}">{{$category->name}} </option>
+                     
+                      @endforeach
+                    </select>
+                  </div>
+                  {!! Form::close() !!}
                   <div class="cart">
                     <div>
                       <div class="qty">
@@ -205,15 +218,16 @@
                   <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
                 </div>
                 <div class="button-group">
+                   {{--<form action="{{route('cart.store')}}" method="post">
+                  @csrf
+                  <input type="hidden" name="id" value="{{$product->id}}">
+                  <input type="hidden" name="title" value="{{$product->title}}">
+                  <input type="hidden" name="price" value="{{$product->price}}">
+                  <button class="btn-primary" type="submit" onClick=""><span>افزودن به سبد</span></button>
+                </form>--}}
                   
                  <a href="{{route('cart.index')}}" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد</a>
 
-                  <div class="add-to-links">
-                    <button type="button" data-toggle="tooltip" title="افزودن به علاقه مندی" onClick="">
-                      <i class="fa fa-heart"></i></button>
-                    <button type="button" data-toggle="tooltip" title="افزودن به مقایسه" onClick=""><i class="fa fa-exchange"></i></button>
-                  </div>
-                </div>
               </div>
               @endforeach
               <div class="product-thumb">
@@ -367,7 +381,25 @@
 
 
 
+@endsection
+
+@section('scripts')
 
 
+<script>
+  $('#category').on('change',function(e)){
+
+    console.log(e);
+
+    var cat_id=e.target.value;
+
+    $.get('/ajax-subcat?cat_id='+cat_id,fuction(data){
+
+        console.log(e);
+    });
+  }
+</script>
 
 @endsection
+
+

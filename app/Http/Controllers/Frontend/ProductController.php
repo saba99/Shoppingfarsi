@@ -18,9 +18,11 @@ class ProductController extends Controller
       $relatedProducts = Product::with('categories')->whereHas('categories', function($q) use ($product){
         $q->whereIn('id', $product->categories);
       })->get();
+
+    $mightAlsoLike = Product::where('slug', '!=', $slug)->MightAlsoLike()->get();
+     $categories=Category::all();
     
-         
-      return view('frontend.products.index',compact(['product','relatedProducts']));
+      return view('frontend.products.index',compact(['product','relatedProducts', 'mightAlsoLike', 'categories']));
       
     }
 

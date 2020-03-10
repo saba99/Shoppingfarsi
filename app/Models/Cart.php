@@ -22,6 +22,9 @@ class Cart{
 
     public $totalPurePrice = 0;
 
+    public $couponDiscount = 0;
+    //public $coupon = null;
+
    /**
     * Class constructor.
     */
@@ -117,5 +120,13 @@ class Cart{
 
    }
 
+   public function addCoupon($coupon){
+
+
+        $couponData = ['price' => $coupon->price, 'coupon' => $coupon];
+        $this->coupon = $couponData;
+        $this->totalPrice -= $couponData['price'];
+        $this->couponDiscount += $couponData['price'];
+   }
 
 }

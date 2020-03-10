@@ -1,8 +1,3 @@
-@extends('frontend.layout.master')
-
-
-@section('header')
-
 <div id="header">
     <!-- Top Bar Start-->
     <nav id="top" class="htop">
@@ -99,7 +94,7 @@
         <div class="table-container">
           <!-- Logo Start -->
           <div class="col-table-cell col-lg-6 col-md-6 col-sm-12 col-xs-12 inner">
-            <div id="logo"><a href="index.html"><img class="img-responsive" src="/image/logo.png" title="MarketShop" alt="MarketShop" /></a></div>
+            <div id="logo"><a href="{{route('homePage')}}"><img class="img-responsive" src="/image/logo.png" title="MarketShop" alt="MarketShop" /></a></div>
           </div>
           <!-- Logo End -->
           <!-- Mini Cart Start-->
@@ -148,13 +143,19 @@
                           <td class="text-right"><strong>کسر هدیه</strong></td>
                           <td class="text-right">{{Session::get('cart')->totalDiscountPrice}}تومان</td>
                         </tr>
-                       
+                       @if(Auth::check() && Session::get('cart')->couponDiscount)
+                      
+                          <td class="text-right"><strong>{{Session::get('cart')->couponDiscount->coupon->title}}</strong></td>
+                          <td class="text-right">{{Session::get('cart')->couponDiscount}}تومان</td>
+                        </tr> 
+                        @endif
+                        <tr>
                           <td class="text-right"><strong>قابل پرداخت</strong></td>
                           <td class="text-right">{{Session::get('cart')->totalPrice}}تومان</td>
                         </tr>
                       </tbody>
                     </table>
-                    <p class="checkout"><a href="{{route('cart.checkout')}}" class="btn btn-primary"><i class="fa fa-shopping-cart">
+                    <p class="checkout"><a href="{{route('cart.Cart')}}" class="btn btn-primary"><i class="fa fa-shopping-cart">
                       </i> مشاهده سبد</a>
                       </p>
                   </div>
@@ -189,15 +190,20 @@
         <div class="container">
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
-            <li><a class="home_link" title="خانه" href="index.html">خانه</a></li>
-              
-            <li class="dropdown"><a href="{{route('category.index',['id'=>1,'page'=>1])}}">پوشاک</a>
+            <li><a class="home_link" title="خانه" href="{{route('homePage')}}">خانه</a></li>
+           {{--@foreach($product->categories   as $category)--}}
+          {{--{{$category->name}}--}}
+          {{--{{$category->name}}--}}
+             @foreach($categories as $category)
+            <li class="dropdown">
+             <a href="{{route('category.index',['id'=>4,'page'=>1])}}">{{$category->name}}</a> 
+               {{--<a href="{{route('category.index',[$category->id,$category->page])}}">{{$category->name}}</a>--}}
               <div class="dropdown-menu">
-              <ul>
-                      <li><a href="">پوشاک <span>&rsaquo;</span></a>
+              <ul>                           {{-----}}
+                      <li><a href=""><span>&rsaquo;</span></a>
                         <div class="dropdown-menu">
                           <ul>
-                            <li><a href="category.html">زیردسته ها </a> </li>
+                            <li><a href=""> </a> </li>
                             <li><a href="category.html">زیردسته ها </a> </li>
                             <li><a href="category.html">زیردسته ها </a> </li>
                             <li><a href="category.html">زیردسته ها </a> </li>
@@ -227,94 +233,14 @@
                       </li>
                     </ul>
               </div>
-            </li>
+              @endforeach
               
-            <li class="dropdown"> <a href="category.html">الکترونیکی</a>
-                  <div class="dropdown-menu">
-                    <ul>
-                      <li> <a href="category.html">لپ تاپ <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li> <a href="category.html">زیردسته های جدید </a> </li>
-                            <li> <a href="category.html">زیردسته های جدید </a> </li>
-                            <li> <a href="category.html">زیردسته جدید </a> </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li> <a href="category.html">رومیزی <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li> <a href="category.html">زیردسته های جدید </a> </li>
-                            <li> <a href="category.html">زیردسته جدید </a> </li>
-                            <li> <a href="category.html">زیردسته جدید </a> </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li> <a href="category.html">دوربین <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li> <a href="category.html">زیردسته های جدید</a></li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><a href="category.html">موبایل و تبلت <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li><a href="category.html">زیردسته های جدید</a></li>
-                            <li><a href="category.html">زیردسته های جدید</a></li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><a href="category.html">صوتی و تصویری <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li><a href="category.html">زیردسته های جدید </a> </li>
-                            <li><a href="category.html">زیردسته جدید </a> </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><a href="category.html">لوازم خانگی</a> </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="dropdown"><a href="category.html">کفش</a>
-                  <div class="dropdown-menu">
-                    <ul>
-                      <li><a href="category.html">آقایان</a> </li>
-                      <li><a href="category.html">بانوان <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li><a href="category.html">زیردسته های جدید </a> </li>
-                            <li><a href="category.html">زیردسته ها </a> </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><a href="category.html">دخترانه</a> </li>
-                      <li><a href="category.html">پسرانه</a> </li>
-                      <li><a href="category.html">نوزاد</a> </li>
-                      <li><a href="category.html">لوازم <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li><a href="category.html">زیردسته های جدید</a></li>
-                            <li><a href="category.html">زیردسته های جدید</a></li>
-                            <li><a href="category.html">زیردسته ها</a></li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="dropdown"> <a href="category.html">ساعت</a>
-                  <div class="dropdown-menu">
-                    <ul>
-                      <li> <a href="category.html">ساعت مردانه</a></li>
-                      <li> <a href="category.html">ساعت زنانه</a></li>
-                      <li> <a href="category.html">ساعت بچگانه</a></li>
-                      <li> <a href="category.html">لوازم</a></li>
-                    </ul>
-                  </div>
-                </li>
-                <li class="dropdown"><a href="category.html">زیبایی و سلامت</a>
+              
+            </li>
+              {{--@endforeach--}}
+                  {{--@foreach($product->categories as $category)--}} 
+                  {{--{{$category->name}}--}}
+                <li class="dropdown"><a href="category.html">پوشاک</a>
                   <div class="dropdown-menu">
                     <ul>
                       <li> <a href="category.html">عطر و ادکلن</a></li>
@@ -326,21 +252,18 @@
                     </ul>
                   </div>
                 </li>
-            <li class="menu_brands dropdown"><a href="#">برند ها</a>
+              {{--@endforeach--}}
+            <li class="menu_brands dropdown"><a href="#">برند</a>
               <div class="dropdown-menu">
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/apple_logo-60x60.jpg" title="اپل" alt="اپل" /></a><a href="#">اپل</a></div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="کنون" alt="کنون" /></a><a href="#">کنون</a></div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"> <a href="#"><img src="/image/product/hp_logo-60x60.jpg" title="اچ پی" alt="اچ پی" /></a><a href="#">اچ پی</a></div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/htc_logo-60x60.jpg" title="اچ تی سی" alt="اچ تی سی" /></a><a href="#">اچ تی سی</a></div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/palm_logo-60x60.jpg" title="پالم" alt="پالم" /></a><a href="#">پالم</a></div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/sony_logo-60x60.jpg" title="سونی" alt="سونی" /></a><a href="#">سونی</a> </div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="test" alt="test" /></a><a href="#">تست</a> </div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/apple_logo-60x60.jpg" title="test 3" alt="test 3" /></a><a href="#">تست 3</a></div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="test 5" alt="test 5" /></a><a href="#">تست 5</a> </div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/canon_logo-60x60.jpg" title="test 6" alt="test 6" /></a><a href="#">تست 6</a></div>
-                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6"><a href="#"><img src="/image/product/apple_logo-60x60.jpg" title="test 7" alt="test 7" /></a><a href="#">تست 7</a> </div>
+               {{--@foreach($brands  as $brand)
+                <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6">
+                  <a href="#">
+                    <img src="{{$brand->filename}}"  class="img-responsive"  /></a><a href="#">{{$brand->title}}</a></div>
                 
-                
+                @endforeach--}}
+                 <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6">
+                  <a href="#">
+                    <img src=""  class="img-responsive"  /></a><a href="#"></a></div>
               </div>
             </li>
             <li class="dropdown wrap_custom_block hidden-sm hidden-xs"><a>بلاک سفارشی</a>
@@ -375,30 +298,17 @@
                 </ul>
               </div>
             </li>
-            <li class="dropdown information-link"><a>برگه ها</a>
+            <li class="dropdown information-link"><a href="{{route('all.product')}}">محصولات</a>
               <div class="dropdown-menu">
                 <ul>
-                  <li><a href="login.html">ورود</a></li>
-                  <li><a href="register.html">ثبت نام</a></li>
-                  <li><a href="category.html">دسته بندی (شبکه/لیست)</a></li>
-                  <li><a href="product.html">محصولات</a></li>
-                  <li><a href="cart.html">سبد خرید</a></li>
-                  <li><a href="checkout.html">تسویه حساب</a></li>
-                  <li><a href="compare.html">مقایسه</a></li>
-                  <li><a href="wishlist.html">لیست آرزو</a></li>
-                  <li><a href="search.html">جستجو</a></li>
+                  <li><a>لیست محصولات</a></li>
+                  <li><a href="{{route('register')}}">ثبت نام</a></li>
+                 
                 </ul>
-                <ul>
-                  <li><a href="about-us.html">درباره ما</a></li>
-                  <li><a href="404.html">404</a></li>
-                  <li><a href="elements.html">عناصر</a></li>
-                  <li><a href="faq.html">سوالات متداول</a></li>
-                  <li><a href="sitemap.html">نقشه سایت</a></li>
-                  <li><a href="contact-us.html">تماس با ما</a></li>
-                </ul>
+                
               </div>
             </li>
-            <li class="custom-link-right"><a href="#" target="_blank"> همین حالا بخرید!</a></li>
+            <li class="custom-link-right"><a href="{{route('cart.index')}}" target="_blank"> همین حالا بخرید!</a></li>
           </ul>
         </div>
         </div>
@@ -406,8 +316,3 @@
     
     <!-- Main آقایانu End-->
   </div>
-
-
-
-
-@endsection

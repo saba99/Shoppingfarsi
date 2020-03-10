@@ -54,8 +54,7 @@ Route::prefix('administrator')->group( function () {
 
    
     //Route::post('brands/{fileId}', 'Backend\BrandController@save')->name('brands.save');
-    Route::get('brands', 'Backend\AdminBrandController@storeBrand')->name('store.brands');
-    Route::post('brands/store', 'Backend\AdminBrandController@brand')->name('brands');
+
    Route::resource('brands','Backend\BrandController');
    
 
@@ -90,6 +89,8 @@ Route::prefix('administrator')->group( function () {
 
 
    
+   Route::resource('coupons', 'Backend\CouponController');
+   
 
 });
  
@@ -105,13 +106,15 @@ Route::get('/profile','Frontend\UserController@profile')->name('user.profile');
 
     Route::get('/add-product-to-cart/{id}', 'Frontend\CartController@addToCart')->name('cart.add');
     Route::get('/remove-item/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
-    Route::get('/cart', 'Frontend\CartController@getCart')->name('cart.Cart');
+    Route::get('/Cart', 'Frontend\CartController@getCart')->name('cart.Cart');
 
     Route::get('/payment-verify','Frontend\OrderController@verify')->name('payment.verify');
 
    
     
      Route::post('comments/{productId}', 'Frontend\CommentController@store')->name('frontend.comments.store');
+
+     Route::post('/coupon','Frontend\CouponController@addCoupon')->name('coupon.add');
 
 
 });
@@ -120,6 +123,7 @@ Route::resource('/', 'Frontend\HomeController');
 
 Route::get('/homePage', 'Frontend\HomeController@index')->name('homePage');
 
+Route::get('/header', 'Frontend\HeaderController@index')->name('header');
 
 Route::resource('file', 'Backend\FileController');
 
@@ -133,6 +137,7 @@ Route::get('products/{slug}','Frontend\ProductController@getProduct')->name('pro
 
 //Route::get('products/{id}', 'Frontend\ProductController@getProduct')->name('product.single');
 
+Route::get('products', 'Frontend\HomeController@AllProduct')->name('all.product');
  Route::get('category/{id}/{page?}','Frontend\ProductController@getProductByCategory')->name('category.index');
 
 
@@ -148,7 +153,12 @@ Route::get('/Products', 'Frontend\ShopController@index')->name('shop.index');
 Route::get('/Product/{product}', 'Frontend\ShopController@show')->name('shop.show');
 
 //Route::view('/cart', 'frontend.cart.view');
-Route::get('/cart', 'CartController@index')->name('cart.index');
-Route::post('/cart', 'CartController@store')->name('cart.store');
+Route::post('cart/fetch', 'CartController@fetch')->name('dynamicdependent.fetch');
+Route::match(['get','post'],'/cart', 'CartController@index')->name('cart.index');
+Route::match(['get','post'],'/cart/store', 'CartController@store')->name('cart.store');
 
 Route::view('/checkout', 'frontend.checkout.index');
+
+
+
+

@@ -1,7 +1,6 @@
 @extends('frontend.layout.master')
 
 
-
 @section('content')
 
 <div class="container">
@@ -67,13 +66,12 @@
                   <div class="form-group required">
                     <label class="control-label">رنگ</label>
                     <select class="form-control" id="input-option200" name="option[200]">
-                      
-                      <option value=""> --- لطفا انتخاب کنید --- </option>
-                      <option value="4">مشکی </option>
-                      <option value="3">نقره ای </option>
-                      <option value="1">سبز </option>
-                      <option value="2">آبی </option>
+                      @foreach($categories as $category)
+                      {{--<option value=""> --- لطفا انتخاب کنید --- </option>--}}
+                      <option value="{{$category->id}}">{{$category->name}} </option>
+                    @endforeach
                     </select>
+                   
                   </div>
                   <div class="cart">
                     <div>
@@ -267,52 +265,26 @@
             <p> در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. </p>
             <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
           </div>
-          <h3 class="subtitle">ویژه</h3>
+          <h3 class="subtitle">شاید علاقه مند باشید</h3>
+           @foreach($mightAlsoLike  as $product)
           <div class="side-item">
             <div class="product-thumb clearfix">
-              <div class="image"><a href="product.html"><img src="/image/product/macbook_pro_1-50x75.jpg" alt=" کتاب آموزش باغبانی " title=" کتاب آموزش باغبانی " class="img-responsive" /></a></div>
+              <div class="image"><a href="{{route('product.single',['slug'=>$product->slug])}}">
+                <img src="{{$product->files[0]->filename}}" style="width:100px;" class="img-responsive img-thumbnail" /></a></div>
               <div class="caption">
-                <h4><a href="product.html">کتاب آموزش باغبانی</a></h4>
-                <p class="price"> <span class="price-new">98000 تومان</span> <span class="price-old">120000 تومان</span> <span class="saving">-26%</span> </p>
+                <h4><a href="{{route('product.single',['slug'=>$product->slug])}}">{{$product->title}}</a></h4>
+                @if($product->discount)
+                <p class="price">
+                   <span class="price-new">{{$product->discount}}   تومان</span>
+                    <span class="price-old">{{$product->price}}  تومان</span>
+                      <span class="saving">{{round(abs($product->price-$product->discount*100)/($product->price))}}%</span> </p> 
+                    @else 
+                    <p class="price">{{$product->price}}</p>
+                  @endif
               </div>
             </div>
-            <div class="product-thumb clearfix">
-              <div class="image"><a href="product.html"><img src="/image/product/samsung_tab_1-50x75.jpg" alt="تبلت ایسر" title="تبلت ایسر" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">تبلت ایسر</a></h4>
-                <p class="price"> <span class="price-new">98000 تومان</span> <span class="price-old">240000 تومان</span> <span class="saving">-5%</span> </p>
-                <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
-              </div>
-            </div>
-            <div class="product-thumb clearfix">
-              <div class="image"><a href="product.html"><img src="/image/product/apple_cinema_30-50x75.jpg" alt="تی شرت کتان مردانه" title="تی شرت کتان مردانه" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="http://demo.harnishdesign.net/opencart/marketshop/v1/index.php?route=product/product&amp;product_id=42">تی شرت کتان مردانه</a></h4>
-                <p class="price"> <span class="price-new">110000 تومان</span> <span class="price-old">122000 تومان</span> <span class="saving">-10%</span> </p>
-              </div>
-            </div>
-            <div class="product-thumb clearfix">
-              <div class="image"><a href="product.html"><img src="/image/product/nikon_d300_1-50x75.jpg" alt="دوربین دیجیتال حرفه ای" title="دوربین دیجیتال حرفه ای" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">دوربین دیجیتال حرفه ای</a></h4>
-                <p class="price"> <span class="price-new">92000 تومان</span> <span class="price-old">98000 تومان</span> <span class="saving">-6%</span> </p>
-              </div>
-            </div>
-            <div class="product-thumb clearfix">
-              <div class="image"><a href="product.html"><img src="/image/product/nikon_d300_5-50x75.jpg" alt="محصولات مراقبت از مو" title="محصولات مراقبت از مو" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">محصولات مراقبت از مو</a></h4>
-                <p class="price"> <span class="price-new">66000 تومان</span> <span class="price-old">90000 تومان</span> <span class="saving">-27%</span> </p>
-                <div class="rating"> <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span> </div>
-              </div>
-            </div>
-            <div class="product-thumb clearfix">
-              <div class="image"><a href="product.html"><img src="/image/product/macbook_air_1-50x75.jpg" alt="لپ تاپ ایلین ور" title="لپ تاپ ایلین ور" class="img-responsive" /></a></div>
-              <div class="caption">
-                <h4><a href="product.html">لپ تاپ ایلین ور</a></h4>
-                <p class="price"> <span class="price-new">10 میلیون تومان</span> <span class="price-old">12 میلیون تومان</span> <span class="saving">-5%</span> </p>
-              </div>
-            </div>
+            @endforeach
+           
           </div>
         </aside>
         <!--Right Part End -->

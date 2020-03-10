@@ -12,6 +12,8 @@ use App\Models\Photo;
 use App\Models\Address;
 use App\Models\Role;
 use App\Models\Comment;
+use App\Models\Coupon;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -77,5 +79,10 @@ class User extends Authenticatable
     public function comments(){
 
         return $this->hasMany(Comment::class);
+    }
+
+    public function coupons(){
+
+        return $this->belongsToMany(Coupon::class);
     }
 }

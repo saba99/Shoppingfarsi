@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class ShopController extends Controller
 {
@@ -17,7 +20,9 @@ class ShopController extends Controller
     {
         $products=Product::inRandomOrder()->take(12)->get();
 
-        return view('frontend.categories.view')->with('products',$products);
+        
+
+        return view('frontend.categories.view')->with(['products'=>$products]);
     }   
 
     /**
@@ -47,16 +52,23 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Request $request,$slug)
     {
        $product=Product::with('files')->where('slug',$slug)->firstOrFail();
         //dd($product->files[0]->filename);
 
         //$mightAlsoLike=Product::where('slug','!=',$slug)->inRandomOrder()->take(4)->get();
         $mightAlsoLike = Product::where('slug', '!=', $slug)->MightAlsoLike()->get();
-        
-         
-       return view('frontend.products.view')->with(['product'=>$product, 'mightAlsoLike'=> $mightAlsoLike]);
+
+        $categories = Category::all();
+
+     
+       
+
+        //$subcategories=SubCategory::where('category_id','=',$cat_id)->get();
+
+        //return Response::json ($subcategories);
+       return view('frontend.products.view')->with(['product'=>$product, 'mightAlsoLike'=> $mightAlsoLike, 'categories' => $categories]);
     }
 
     /**
