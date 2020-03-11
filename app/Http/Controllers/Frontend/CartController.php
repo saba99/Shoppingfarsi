@@ -9,7 +9,8 @@ use App\Models\Cart;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Product;
-
+use App\Models\Category;
+use App\Models\Brand;
 class CartController extends Controller
 {
    public function addToCart(Request $request,$id){
@@ -37,8 +38,9 @@ class CartController extends Controller
       $cities=City::all();
       $countries = Country::all();
       //dd($countries);
-
-      return view('frontend.cart.index', compact(['cart', 'oldCart', 'cities', 'countries']));
+          $categories=Category::all();
+          $brands=Brand::all();
+      return view('frontend.cart.index', compact(['cart', 'oldCart', 'cities', 'countries','categories','brands']));
 
    }
 

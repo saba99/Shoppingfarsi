@@ -191,57 +191,16 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
             <li><a class="home_link" title="خانه" href="{{route('homePage')}}">خانه</a></li>
-           {{--@foreach($product->categories   as $category)--}}
-          {{--{{$category->name}}--}}
-          {{--{{$category->name}}--}}
-             @foreach($categories as $category)
-            <li class="dropdown">
-             <a href="{{route('category.index',['id'=>4,'page'=>1])}}">{{$category->name}}</a> 
+        
+           
+              
                {{--<a href="{{route('category.index',[$category->id,$category->page])}}">{{$category->name}}</a>--}}
-              <div class="dropdown-menu">
-              <ul>                           {{-----}}
-                      <li><a href=""><span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li><a href=""> </a> </li>
-                            <li><a href="category.html">زیردسته ها </a> </li>
-                            <li><a href="category.html">زیردسته ها </a> </li>
-                            <li><a href="category.html">زیردسته ها </a> </li>
-                            <li><a href="category.html">زیردسته جدید </a> </li>
-                          </ul>
-                        
-                        </div>
-                      </li>
-                      <li><a href="category.html" >بانوان</a> </li>
-                      <li><a href="category.html">دخترانه<span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li><a href="category.html">زیردسته ها </a></li>
-                            <li><a href="category.html">زیردسته جدید</a></li>
-                            <li><a href="category.html">زیردسته جدید</a></li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li><a href="category.html">پسرانه</a></li>
-                      <li><a href="category.html">نوزاد</a></li>
-                      <li><a href="category.html">لوازم <span>&rsaquo;</span></a>
-                        <div class="dropdown-menu">
-                          <ul>
-                            <li><a href="category.html">زیردسته های جدید</a></li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-              </div>
-              @endforeach
               
-              
-            </li>
-              {{--@endforeach--}}
-                  {{--@foreach($product->categories as $category)--}} 
-                  {{--{{$category->name}}--}}
-                <li class="dropdown"><a href="category.html">پوشاک</a>
+                     @foreach($categories as $category)
+                <li class="dropdown">
+                  <a href="{{route('category.index',['id'=>4,'page'=>1])}}">{{$category->name}}</a>
                   <div class="dropdown-menu">
+                 
                     <ul>
                       <li> <a href="category.html">عطر و ادکلن</a></li>
                       <li> <a href="category.html">آرایشی</a></li>
@@ -252,15 +211,15 @@
                     </ul>
                   </div>
                 </li>
-              {{--@endforeach--}}
+             @endforeach
             <li class="menu_brands dropdown"><a href="#">برند</a>
               <div class="dropdown-menu">
-               {{--@foreach($brands  as $brand)
+               @foreach($brands  as $brand)
                 <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6">
                   <a href="#">
-                    <img src="{{$brand->filename}}"  class="img-responsive"  /></a><a href="#">{{$brand->title}}</a></div>
+                    <img src="{{$brand->filename}}" class="img-responsive"  /></a><a href="#">{{$brand->title}}</a></div>
                 
-                @endforeach--}}
+                @endforeach
                  <div class="col-lg-1 col-md-2 col-sm-3 col-xs-6">
                   <a href="#">
                     <img src=""  class="img-responsive"  /></a><a href="#"></a></div>

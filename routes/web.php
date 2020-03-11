@@ -160,5 +160,9 @@ Route::match(['get','post'],'/cart/store', 'CartController@store')->name('cart.s
 Route::view('/checkout', 'frontend.checkout.index');
 
 
+Route::get('/landingPage', ['uses' => 'Frontend\LandingPageController@manageCategory']);
+Route::post('add-category', ['as' => 'add.category', 'uses' => 'Frontend\LandingPageController@addCategory']);
+
+
 
 

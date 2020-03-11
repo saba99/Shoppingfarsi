@@ -47,8 +47,8 @@
                   <option value="" selected="selected">پیشفرض</option>
                   <option value="">نام (الف - ی)</option>
                   <option value="">نام (ی - الف)</option>
-                  <option value="">قیمت (کم به زیاد)</option></option>
-                  <option value="">قیمت (زیاد به کم)</option>
+                  <option value="kam-ziad">قیمت (کم به زیاد)</option></option>
+                  <option value="ziad-kam">قیمت (زیاد به کم)</option>
                   <option value="">امتیاز (بیشترین)</option>
                   <option value="">امتیاز (کمترین)</option>
                   <option value="">مدل (A - Z)</option>

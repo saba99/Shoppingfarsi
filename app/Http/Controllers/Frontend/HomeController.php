@@ -18,7 +18,11 @@ class HomeController extends Controller
 
        
         ($latestProduct=Product::with('files')->get());
-      
+
+        $RandomProducts = Product::with('files')->inRandomOrder()->get();
+        
+        //dd($RandomProducts[0]->title);
+     // dd($RandomProducts[0]->files[0]->filename);
         $modelCategoryProduct=Product::with(['categories'=>function($q){
            
             $q->where('name','مد و پوشاک');
@@ -34,15 +38,19 @@ class HomeController extends Controller
         
         $brands=Brand::orderBy('created_at','desc')->limit(10)->get();
 
-        $categories = Category::all();
-
+       //$categories = Category::all();
+       ($categories = Category::where('parent_id', '=', 1)->get());
+        
+        //($allCategories = Category::pluck('name','id')->all());
+       //dd($category=Category::->get()) ;
+            
         $product=Product::orderby('created_at','desc')->limit(10);
         
         $file  = File::pluck('filename', 'id')->first();
 
         $banners = Banner::where('status', '1')->get();
 
-        return  view('frontend.home.index',compact(['latestProduct','categories','file','banners', 'productCategory', 'modelCategoryProduct' ,'productCategorytab2','brands']));
+        return  view('frontend.home.index',compact(['latestProduct','categories','file','banners', 'productCategory', 'modelCategoryProduct' ,'productCategorytab2','brands', 'RandomProducts']));
     }
 
 
@@ -52,7 +60,7 @@ class HomeController extends Controller
         //$category=Category::with('products.files')->where('id',$id)->first();
         $category = Category::whereId($id)->first();
 
-        dd($category);
+        
         $products = Product::with('files')->whereHas('categories', function ($q) use ($category) {
             $q->where('id', $category->id);
         })->paginate($page);
@@ -71,10 +79,11 @@ class HomeController extends Controller
 public function AllProduct(){
 
       $product=Product::with('categories')->get();
-      dd($categories=Category::all());
+      ($categories=Category::all());
       ($product['key']=$categories[0]);
+      $brands=Brand::all();
       ($product);
-    return view('frontend.products.allproducts',compact(['product']));
+    return view('frontend.products.allproducts',compact(['product','categories','brands']));
 }
 
 

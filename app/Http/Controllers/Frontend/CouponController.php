@@ -33,7 +33,7 @@ class CouponController extends Controller
                 $cart=new Cart($cart);
 
                 $cart->addCoupon($coupon);
-
+               
                  $request->session()->put('cart',$cart);
 
                  $user=Auth::user();

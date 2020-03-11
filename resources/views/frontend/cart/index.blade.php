@@ -1,4 +1,9 @@
 @extends('frontend.layout.master')
+@section('navigation')
+
+@include('partials.header',['categories'=> $categories,'brands'=>$brands]) 
+
+@endsection
 @section('content')
   @if(Session::has('error'))
             <div class="alert alert-warning">
@@ -169,7 +174,7 @@
             <div class="pull-left"><a href="index.html" class="btn btn-default">ادامه خرید</a></div>
             <div class="pull-right"><a href="{{route('payment.verify',['amount'=>Session::get('cart')->totalPrice])}}" class="btn btn-primary">تسویه حساب</a></div>
        
-          </div>
+          </div>               {{--{{route('payment.verify',['amount'=>Session::get('cart')->totalPrice])}}--}}
         </div>
 
 @endsection

@@ -206,10 +206,7 @@
                   <option value="">نام (ی - الف)</option>
                   <option value="">قیمت (کم به زیاد)</option></option>
                   <option value="">قیمت (زیاد به کم)</option>
-                  <option value="">امتیاز (بیشترین)</option>
-                  <option value="">امتیاز (کمترین)</option>
-                  <option value="">مدل (A - Z)</option>
-                  <option value="">مدل (Z - A)</option>
+                  
                 </select>
               </div>
               <div class="col-sm-1 text-right">
