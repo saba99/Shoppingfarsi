@@ -104,7 +104,8 @@
               <button type="button" data-toggle="dropdown" data-loading-text="بارگذاری ..." class="heading dropdown-toggle">
               <span class="cart-icon pull-left flip"></span>
            
-              <span id="cart-total">{{Session::has('cart') ? Session::get('cart')->totalQty.'آیتم': 0}}  {{Session::has('cart') ? Session::get('cart')->totalPrice.'تومان': ''}}</span></button>
+              <span id="cart-total">{{Session::has('cart') ? Session::get('cart')->totalQty.'آیتم': 0}}  
+                {{Session::has('cart') ? Session::get('cart')->totalPrice.'تومان': ''}}</span></button>
 
               
               <ul class="dropdown-menu">
@@ -112,10 +113,11 @@
                
                 <li>
                   <table class="table">
-                     @foreach(Session::get('cart')->items as $product)
+                    {{-- @foreach(Session::get('cart')->items as $product)
                     <tbody>
                       <tr>
-                        <td class="text-center" style="width:18%"><a href="product.html"><img class="img-thumbnail" title="کفش راحتی مردانه" alt="کفش راحتی مردانه" src="{{$product['item']->files[0]->filename}}"></a></td>
+                        <td class="text-center" style="width:18%">
+                          <a href="product.html"><img class="img-thumbnail" title="کفش راحتی مردانه" alt="کفش راحتی مردانه" src="{{$product['item']->files[0]->filename}}"></a></td>
                         <td class="text-left"><a href="product.html">{{$product['item']->title}}</a></td>
                         <td class="text-right">x {{$product['qty']}}</td>
                         <td class="text-right">{{$product['item']->price}}</td>
@@ -128,7 +130,7 @@
                                     </form>
                       </tr>
                    
-                    </tbody> @endforeach
+                    </tbody> @endforeach--}}
                   </table>
                 </li>
                <li>

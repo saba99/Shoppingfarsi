@@ -108,9 +108,9 @@ Route::get('/profile','Frontend\UserController@profile')->name('user.profile');
     Route::get('/remove-item/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
     Route::get('/Cart', 'Frontend\CartController@getCart')->name('cart.Cart');
 
-    Route::get('/payment-verify','Frontend\OrderController@verify')->name('payment.verify');
+    Route::get('/order-verify','Frontend\OrderController@verify')->name('order.verify');
 
-   
+    Route::get('payment-verify/{id}', 'Frontend\PaymentController@verify')->name('payment.verify');
     
      Route::post('comments/{productId}', 'Frontend\CommentController@store')->name('frontend.comments.store');
 

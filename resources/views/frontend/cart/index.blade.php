@@ -1,7 +1,7 @@
 @extends('frontend.layout.master')
 @section('navigation')
 
-@include('partials.header',['categories'=> $categories,'brands'=>$brands]) 
+@include('partials.header',['categories'=> $categories,'brands'=>$brands,'cart'=>$cart]) 
 
 @endsection
 @section('content')
@@ -172,7 +172,7 @@
           </div>
           <div class="buttons">
             <div class="pull-left"><a href="index.html" class="btn btn-default">ادامه خرید</a></div>
-            <div class="pull-right"><a href="{{route('payment.verify',['amount'=>Session::get('cart')->totalPrice])}}" class="btn btn-primary">تسویه حساب</a></div>
+            <div class="pull-right"><a href="{{route('order.verify',['amount'=>Session::get('cart')->totalPrice])}}" class="btn btn-primary">تسویه حساب</a></div>
        
           </div>               {{--{{route('payment.verify',['amount'=>Session::get('cart')->totalPrice])}}--}}
         </div>

@@ -10,6 +10,7 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Payment;
 
 class OrderController extends Controller
 {
@@ -33,7 +34,8 @@ class OrderController extends Controller
           Session::flash('warning','سبد خرید شما خالی است');  
         return redirect('/');
         }
-             
+      
+         
         $productId=[];
         foreach($cart->items as $product){
           
@@ -41,14 +43,31 @@ class OrderController extends Controller
            $productId[$product['item']->id]=['qty'=>$product['qty']];
 
         }
-        $order=new Order;
+         $order=new Order;
+        
+       
         $order->amount=$cart->totalPrice;
         $order->user_id=Auth::user()->id;
-        $order->status=1;
+        $order->status=0;
          $order->save();
 
          $order->products()->attach($productId);
 
-         dd($cart);
+      //dd($cart);
+
+      $payment = new Payment($order->amount,$order->id);
+
+      $result = $payment->doPayment();
+
+      //dd($result); 
+
+      if ($result->Status == 100) {
+         //Header('Location: https://sandbox.zarinpal.com/pg/StartPay/'.$result->Authority);
+
+         return redirect()->to('https://sandbox.zarinpal.com/pg/StartPay/' . $result->Authority);
+      } else {
+         echo 'ERR: ' . $result->Status;
+      }    
+
     }
 }
