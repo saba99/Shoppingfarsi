@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 
 use App\Models\Category;
+use App\Http\Requests\Backend\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -42,7 +43,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $category = new Category();
         $category->name = $request->input('name');
@@ -96,7 +97,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
@@ -151,7 +152,7 @@ class CategoryController extends Controller
         return view('admin.categories.index-setting', compact(['category', 'attributeGroups']));
 
     }
-  public function saveSetting(Request $request,$id){
+  public function saveSetting(CategoryRequest $request,$id){
 
 
    // return $request->all();

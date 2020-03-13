@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Facades\Hash;
 
+use App\Http\Requests\Frontend\UserRequest;
+use App\Models\Category;
+use App\Models\Brand;
 class UserController extends Controller
 {
-   public function register(Request $request){
+   public function register(UserRequest $request){
 
       //return $request->all();
         $user = new User();
@@ -45,8 +48,11 @@ class UserController extends Controller
    public function profile(){
   
       $user=Auth::user();
+
+      $categories=Category::all();
+      $brands=Brand::all();
      
-      return view('frontend.profile.index', compact(['user']));
+      return view('frontend.profile.index', compact(['user', 'categories','brands']));
 
    }
 }

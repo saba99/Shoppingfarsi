@@ -13,6 +13,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                @include('partials.errors')
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <form id="myForm" method="POST" action="/administrator/products">

@@ -5,7 +5,7 @@
 
 
 <div class="content">
-
+@include('partials.errors')
 <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">دسته بندی ها</h3>

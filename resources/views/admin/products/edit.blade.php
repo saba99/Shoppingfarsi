@@ -5,12 +5,14 @@
 
 @section('content')
     <section class="content" id="app">
+       
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title pull-right">ویرایش محصول :{{$product->title}}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <form id="myForm" method="POST" action="/administrator/products/{{$product->id}}">

@@ -12,6 +12,7 @@ use App\Models\Brand;
 use App\Models\Category;
 
  use App\Models\Photo;
+ use App\Http\Requests\Backend\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -66,7 +67,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
 
         //return $request->all();
@@ -100,7 +101,7 @@ class ProductController extends Controller
         //$newProduct->photos()->sync($photos);*/
        ($files=$request->input('filename')[0]);
         
-      dd( $newProduct->files()->sync($files));
+      ( $newProduct->files()->sync($files));
       
 
 

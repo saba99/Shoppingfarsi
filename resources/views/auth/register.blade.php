@@ -1,8 +1,14 @@
 @extends('frontend.layout.master')
 
+@section('navigation')
+
+@include('partials.header2')
+
+@endsection
 @section('content')
 
 <!--Middle Part Start-->
+@include('partials.errors')
         <div class="col-sm-9" id="content">
           <h1 class="title">ثبت نام حساب کاربری</h1>
           <p>اگر قبلا حساب کاربریتان را ایجاد کرد اید جهت ورود به <a href="{{route('login')}}">صفحه لاگین</a> مراجعه کنید.</p>

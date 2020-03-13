@@ -1,6 +1,10 @@
 @extends('frontend.layout.master')
 
+@section('navigation')
 
+@include('partials.header2')
+
+@endsection
 
 
 @section('content')

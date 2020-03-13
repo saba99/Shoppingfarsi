@@ -1,6 +1,7 @@
 @extends('admin.layout.master')
 
 
+
 @section('content')
 @if(Session::has('add_product'))
 
