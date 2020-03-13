@@ -1,7 +1,7 @@
 @extends('frontend.layout.master')
 @section('navigation')
 
-@include('partials.header',['categories'=> $categories,'brands'=>$brands,'cart'=>$cart]) 
+@include('partials.header',['categories'=> $categories,'brands'=>$brands,'cart'=>$cart])
 
 @endsection
 @section('content')

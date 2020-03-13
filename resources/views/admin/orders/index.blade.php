@@ -53,22 +53,23 @@
 
                          <tr>
 
-                            <td>{{$order->id}}</td>
-                            <td>{{$order->amount}}</td>
+                            <td class="text-center">
+                              <a href="{{route('orders.lists',['id'=>$order->id])}}">{{$order->id}}</a></td>
+                            <td class="text-center">{{$order->amount}}</td>
                             
                             @if($order->status==0)
                               
-                            <td>
-                                <span class="lable lable-danger">پرداخت نشده</span>
+                            <td class="text-center">
+                                <span class="badge badge-danger">پرداخت نشده</span>
                             </td>
                              @else 
 
-                                <td>
-                                    <span class="lable lable-success">پرداخت شده</span>
+                                <td class="text-center">
+                                    <span class="badge badge-success">پرداخت شده</span>
                                 </td>
                              @endif
                             
-                            <td>{{$brand->created_at}}</td>
+                            <td class="text-center">{{$order->created_at}}</td>
                            
                          </tr>
 

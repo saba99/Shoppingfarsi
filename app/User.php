@@ -13,7 +13,7 @@ use App\Models\Address;
 use App\Models\Role;
 use App\Models\Comment;
 use App\Models\Coupon;
-
+use App\Models\Order;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -84,5 +84,10 @@ class User extends Authenticatable
     public function coupons(){
 
         return $this->belongsToMany(Coupon::class);
+    }
+
+    public function orders(){
+
+        return $this->hasMany(Order::class);
     }
 }

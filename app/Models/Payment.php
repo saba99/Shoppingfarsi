@@ -29,7 +29,7 @@ public function __construct($amount, $orderId = null){
         $this->Description = 'پرداخت وجه بابت  دریافت کالا';
         //$Email = 'UserEmail@Mail.Com'; // Optional
         //$this->Mobile = '09123456789'; // Optional
-        $this->CallbackURL = 'http://127.0.0.1:8000/payment-verify'.$orderId; // Required
+        $this->CallbackURL = 'http://127.0.0.1:8000/payment-verify/'.$orderId; // Required
 }
 public function doPayment(){
         $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);

@@ -80,7 +80,9 @@ Route::prefix('administrator')->group( function () {
 
 
     Route::get('orders','Backend\OrderController@index');
+    Route::get('orders/lists/{id}', 'Backend\OrderController@getOrderLists')->name('orders.lists');
     
+
     Route::get('comments', 'Backend\CommentController@index')->name('comments.index');
     Route::get('comments/{id}', 'Backend\CommentController@edit')->name('comments.edit');
     Route::post('comments/{id}', 'Backend\CommentController@actions')->name('comments.actions');
@@ -115,6 +117,9 @@ Route::get('/profile','Frontend\UserController@profile')->name('user.profile');
      Route::post('comments/{productId}', 'Frontend\CommentController@store')->name('frontend.comments.store');
 
      Route::post('/coupon','Frontend\CouponController@addCoupon')->name('coupon.add');
+
+    Route::get('orders', 'Frontend\OrderController@index')->name('profile.orders');
+    Route::get('orders/lists/{id}', 'Frontend\OrderController@getOrderLists')->name('profile.orders.lists');
 
 
 });

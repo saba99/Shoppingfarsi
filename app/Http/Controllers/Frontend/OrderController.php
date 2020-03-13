@@ -70,4 +70,19 @@ class OrderController extends Controller
       }    
 
     }
+   public function index()
+   {
+
+      $orders = Order::paginate(5);
+
+      return view('frontend.profile.orders', compact(['orders']));
+   }
+
+   public function getOrderLists($id)
+   {
+
+      ($order = Order::with('user',  'products.files')->whereId($id)->first());
+      return view('frontend.profile.lists', compact(['order']));
+   }
+    
 }

@@ -46,11 +46,56 @@
           </div>
         </aside>
         <!--Middle Part Start-->
+        
         <div id="content" class="col-sm-9">
         <div class="alert alert-success">
-            <p>{{$user->name.' '.$user->lastname}}به حساب کاربری خود خوش آمدید</p>
+            <div class="box-body ">
+              <div class="table-responsive ">
+                <table class="table no-margin">
+                  <thead>
+                  <tr>
+                    <th class="text-center">شناسه</th>
+                    <th class="text-center">مقدار</th>
+                     <th class="text-center">وضعیت</th>
+                   <th class="text-center">تاریخ ایجاد</th>
+                  
+                  </tr>
+                  </thead>
+                  <tbody>
+               
+                   @foreach($orders as $order)
+
+                         <tr>
+
+                            <td class="text-center">
+                              <a href="{{route('profile.orders.lists',['id'=>$order->id])}}">{{$order->id}}</a></td>
+                            <td class="text-center">{{$order->amount}}</td>
+                            
+                            @if($order->status==0)
+                              
+                            <td class="text-center">
+                                <span class="badge badge-danger">پرداخت نشده</span>
+                            </td>
+                             @else 
+
+                                <td class="text-center">
+                                    <span class="badge badge-success">پرداخت شده</span>
+                                </td>
+                             @endif
+                            
+                            <td class="text-center">{{$order->created_at}}</td>
+                           
+                         </tr>
+
+                   @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
         </div>
         </div>
+
         <!--Middle Part End -->
         <!--Right Part Start -->
        
